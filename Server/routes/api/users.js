@@ -1,8 +1,8 @@
-import { Router } from 'express';
-const router = Router();
+const express = require('express');
+const router = express.Router();
 
 // Load user model
-import User from '../../models/User';
+const User = require('../../models/User');
 
 // @route GET api/users/test
 // @access Public
@@ -54,3 +54,5 @@ router.delete('/:id', (req, res) => {
     .then(user => res.json({ mgs: 'user entry deleted successfully' }))
     .catch(err => res.status(404).json({ error: 'No such a user' }));
 });
+
+module.exports = router;

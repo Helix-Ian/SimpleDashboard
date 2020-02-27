@@ -1,2 +1,3 @@
 Server/node_modules
 Server/config/default.json
+.DS_Store
