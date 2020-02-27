@@ -28,7 +28,7 @@ class ShowUserList extends Component {
 
   render() {
     const users = this.state.users;
-    console.log("PrintUser: " + users);
+    console.log("PrintUser: " + JSON.stringify(users));
 
     return (
     <div>
