@@ -18,13 +18,16 @@ Assuming that there weren't install issues...
 
 #To run the server
 FROM THE SERVER ROOT DIRECTORY (/Server)
+
 `npm run start-dev`
 
 this script will run nodemon which will reload the server whenever you save any changes to server files.
 
 #To run the react project
 FROM THE DASHBOARD-APP ROOT DIRECTORY (/dashboard-app)
+
 `npm start`
+
 It should autoload a default browser window.
 This window will show errors when you break the page and will reload the project when you save any changes. 
 
