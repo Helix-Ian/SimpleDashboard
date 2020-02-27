@@ -7,23 +7,28 @@ Assuming that you have npm and node installed
 
 MAKE SURE THAT YOU GRAB default.json file from slack and add it inside of Server/config. It contains user/pw so it must be ignored (pls do not push to github)
 
-In terminal: navigate to the Server folder and run `npm install`
+In terminal: navigate to the Server folder and run 
+
+`npm install`
+
 npm install reads the package.json build file which tells your computer what dependencies to install to run the machine.
 
-Open a new terminal window and navigate to the dashboard-app folder and run `npm install`
+Open a new terminal window and navigate to the dashboard-app folder and run 
+
+`npm install`
 
 You will need two open terminal windows (one to run the project and one to run the server) and probably one more for working with git so you don't have to close them to git
 
 Assuming that there weren't install issues...
 
-#To run the server
+# To run the server
 FROM THE SERVER ROOT DIRECTORY (/Server)
 
 `npm run start-dev`
 
 this script will run nodemon which will reload the server whenever you save any changes to server files.
 
-#To run the react project
+# To run the react project
 FROM THE DASHBOARD-APP ROOT DIRECTORY (/dashboard-app)
 
 `npm start`
