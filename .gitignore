@@ -1,2 +1,2 @@
 Server/node_modules
-Server/creds.js
+Server/config/default.json

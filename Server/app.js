@@ -1,11 +1,13 @@
-// app.js
-
-const express = require('express');
+import express from 'express';
+import connectDB from './config/db';
 
 const app = express();
 
-app.get('/', (req, res) => res.send('Server Running Here'));
+// Connect Database
+connectDB();
 
-const port = process.env.PORT || 8083;
+app.get('/', (req, res) => res.send('Server is running'));
+
+const port = process.env.PORT || 8082;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
