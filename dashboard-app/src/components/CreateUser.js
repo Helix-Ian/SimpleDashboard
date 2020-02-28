@@ -21,6 +21,7 @@ class CreateUser extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  //Naturally "submit" reloads the page - we don't want this since we would lose the state
   onSubmit = e => {
     e.preventDefault();
 

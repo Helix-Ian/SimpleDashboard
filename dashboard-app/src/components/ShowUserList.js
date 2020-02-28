@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import '../App.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-//import {UserDashboard} from './UserDashboard'
+import UserDashboard from './UserDashboard'
 
 class ShowUserList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: []
+      users: [],
     };
   } 
 
@@ -28,6 +28,14 @@ class ShowUserList extends Component {
 
   render() {
     const users = this.state.users;
+    const columns = [
+      {text: "First Name", name: 'fName'},
+      {text: "Middle Name", name: 'mName'},
+      {text: "Last Name", name: 'lName'},
+      {text: "Age", name: 'age'},
+      {text: "Birth Date", name: 'birthDate'},
+      {text: "Manager", name: 'manager'}
+    ]
     console.log("PrintUser: " + JSON.stringify(users));
 
     return (
@@ -37,6 +45,9 @@ class ShowUserList extends Component {
             <Link to="/create-user" className="addLink">
             + Add New User
             ></Link>
+      </div>
+      <div>
+      <UserDashboard columns={columns} users={users}/>
       </div>
     </div>
     );
