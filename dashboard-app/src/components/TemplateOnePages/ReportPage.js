@@ -37,8 +37,9 @@ const SummaryTable = (props) => {
     }
     
     useEffect(() => {
-        if (!window.google_charts_loaded) {
-            window.on_chart_load.push(renderTable);
+        // delays loading until charts api is loaded
+        if (!window.isGoogleChartsLoaded) {
+            window.googleChartsLoadFunctions.push(renderTable);
             return;
         }
 
@@ -78,6 +79,7 @@ const ReportPage = (props) => {
     <div>
         <Header title={title}/>
         {objectList.map(obj =>
+            // Added a 'dataid' prop to pass to chart components ('key' is not accessable) so that the divs can have unique IDs
             <InformationSection key={obj.id} dataid={obj.id} type={obj.type}/>
         )}
         <Footer pageNumber={pageNumber}/>
