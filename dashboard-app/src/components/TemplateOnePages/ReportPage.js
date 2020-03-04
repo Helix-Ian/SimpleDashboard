@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 //import { Link } from 'react-router-dom';
 import '../../App.css';
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
 
 //Create PieChart Here
 const PieChart = function() {
@@ -12,6 +12,42 @@ const PieChart = function() {
 //Create Info Text Here
 const InformationText = function() {
     return <div className="TestCompInfo">InformationTextHere</div>
+}
+
+const SummaryTable = (props) => {
+
+    const renderTable = () => {
+        var data = new window.google.visualization.DataTable();
+        data.addColumn('string', 'Application');
+        data.addColumn('string', 'User (or IP)');
+        data.addColumn('number', 'Session');
+        data.addColumn('number', '% of Subtotal');
+        
+        data.addRows([
+            ['JonDo', '192.168.4.14', 9224, 100.00],
+            ['Proxy.HTTP', '222.186.19.221', 146, 37.15]
+        ]);
+
+        var options = {
+
+        };
+
+        var table = new window.google.visualization.Table(document.getElementById(props.tableName));
+        table.draw(data, options);
+    }
+    
+    useEffect(() => {
+        if (!window.google_charts_loaded) {
+            window.on_chart_load.push(renderTable);
+            return;
+        }
+
+        renderTable();
+    })
+
+    return (
+        <div id={props.tableName}></div>
+    );
 }
 
 //Handler that will triage the creation of the display type we are looking for
@@ -24,6 +60,8 @@ const InformationSection = (props) => {
             return <PieChart/>
         case "InformationText":
             return <InformationText/>
+        case "SummaryTable":
+            return <SummaryTable tableName={props.dataid} />
         default:
             return <InformationText/>
     }
@@ -40,7 +78,7 @@ const ReportPage = (props) => {
     <div>
         <Header title={title}/>
         {objectList.map(obj =>
-            <InformationSection key={obj.id} type={obj.type}/>
+            <InformationSection key={obj.id} dataid={obj.id} type={obj.type}/>
         )}
         <Footer pageNumber={pageNumber}/>
     </div>
