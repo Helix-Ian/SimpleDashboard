@@ -1,28 +1,34 @@
 import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import '../App.css';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import TemplateOneTitlePage from './TemplateOnePages/TemplateOneTitlePage'
 import TemplateOneTableOfContents from './TemplateOnePages/TemplateOneTableOfContents';
+import ReportPage from './TemplateOnePages/ReportPage';
 
 
 class PageController extends Component {
-
+    constructor(props) {
+        super(props);
+        //This is just test information to show population of ReportPage
+        var reportPageInfo1 = {"objectList":[{"id":"SampleID", "type":"PieChart"},{"id":"SampleID1", "type":"PieChart"}], "title":"Great First Page", "pageNumber":1}
+        var reportPageInfo2 = {"objectList":[{"id":"SampleID2", "type":"InformationText"},{"id":"SampleID3", "type":"InformationText"}], "title":"Great Second Page", "pageNumber":2}
+        var reportPageInfo3 = {"objectList":[{"id":"SampleID4", "type":"InformationText"},{"id":"SampleID5", "type":"PieChart"}], "title":"OK Third Page", "pageNumber":3}
+        var informationFromApi = [reportPageInfo1, reportPageInfo2, reportPageInfo3]
+        this.state = {
+          informationFromApi: informationFromApi,
+        };
+      } 
   
-    //This will be where we triage out the work to create each of the pages
+    //We will need to pass in props to report pages. Here we render the template page and then all info that 
+    //Serge will pass to us
     render() {   
   
       return (
       <div>
         <TemplateOneTitlePage/>
-        <TemplateOneTableOfContents/>
+        {this.state.informationFromApi.map(info =>
+            <ReportPage pageJson={info}/>
+        )}
       </div>
       );
     }
