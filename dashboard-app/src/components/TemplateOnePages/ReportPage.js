@@ -40,15 +40,20 @@ const SummaryTable = (props) => {
             var firstRow = objectData[0];
             data.addRow([dataObject.name, firstRow[0], firstRow[1], percentages[0]]);
             for (var i = 1; i < objectData.length; i++) {
-                data.addRow(['', objectData[i][0], objectData[i][1], percentages[i]])
+                data.addRow(['', objectData[i][0], objectData[i][1], percentages[i]]);
             }
+            var boldIndex = data.addRow(['', 'Subtotal', total, 100]);
+            data.setProperty(boldIndex, 1, 'style', 'font-weight: bold;');
+            data.setProperty(boldIndex, 2, 'style', 'font-weight: bold;');
+            data.setProperty(boldIndex, 3, 'style', 'font-weight: bold;');
         }
 
         var percentFormat = new window.google.visualization.NumberFormat({suffix: '%'});
         percentFormat.format(data, 3);
 
         var options = {
-            sort: 'disable'
+            sort: 'disable',
+            allowHtml: true
         };
 
         var table = new window.google.visualization.Table(document.getElementById(props.tableName));
