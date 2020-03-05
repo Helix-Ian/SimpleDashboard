@@ -1,8 +1,9 @@
 import React from 'react';
 //import { Link } from 'react-router-dom';
 import '../../App.css';
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
+import SummaryTable from '../Charts/SummaryTable';
 
 //Create PieChart Here
 const PieChart = function() {
@@ -24,6 +25,8 @@ const InformationSection = (props) => {
             return <PieChart/>
         case "InformationText":
             return <InformationText/>
+        case "SummaryTable":
+            return <SummaryTable tableName={props.dataid} />
         default:
             return <InformationText/>
     }
@@ -40,7 +43,8 @@ const ReportPage = (props) => {
     <div>
         <Header title={title}/>
         {objectList.map(obj =>
-            <InformationSection key={obj.id} type={obj.type}/>
+            // Added a 'dataid' prop to pass to chart components ('key' is not accessible) so that the divs can have unique IDs
+            <InformationSection key={obj.id} dataid={obj.id} type={obj.type}/>
         )}
         <Footer pageNumber={pageNumber}/>
     </div>
