@@ -4,6 +4,7 @@ import '../../App.css';
 import Header from './Header';
 import Footer from './Footer';
 import SummaryTable from '../Charts/SummaryTable';
+import GraphTable from '../Charts/GraphTable';
 
 //Create PieChart Here
 const PieChart = function() {
@@ -27,6 +28,8 @@ const InformationSection = (props) => {
             return <InformationText/>
         case "SummaryTable":
             return <SummaryTable tableName={props.dataid} />
+        case "GraphTable":
+            return <GraphTable tableName={props.dataid} />
         default:
             return <InformationText/>
     }
