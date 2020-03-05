@@ -4,6 +4,7 @@ import '../App.css';
 import TemplateOneTitlePage from './TemplateOnePages/TemplateOneTitlePage'
 import TemplateOneTableOfContents from './TemplateOnePages/TemplateOneTableOfContents';
 import ReportPage from './TemplateOnePages/ReportPage';
+import TableOfContents from './TemplateOnePages/TableOfContents';
 
 
 class PageController extends Component {
@@ -26,6 +27,7 @@ class PageController extends Component {
       return (
       <div>
         <TemplateOneTitlePage/>
+        <TableOfContents/>
         {this.state.informationFromApi.map(info =>
             <ReportPage pageJson={info}/>
         )}
