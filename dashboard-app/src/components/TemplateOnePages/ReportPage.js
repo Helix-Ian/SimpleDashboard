@@ -6,6 +6,7 @@ import Footer from './Footer';
 import SummaryTable from '../Charts/SummaryTable';
 import GraphTable from '../Charts/GraphTable';
 import DonutChart from '../Charts/DonutChart';
+import SimpleTable from '../Charts/SimpleTable';
 
 //Create PieChart Here
 const PieChart = function() {
@@ -33,6 +34,8 @@ const InformationSection = (props) => {
             return <GraphTable tableName={props.dataid} />
         case "DonutChart":
             return <DonutChart chartName={props.dataid} />
+        case "SimpleTable":
+            return <SimpleTable tableName={props.dataid} />
         default:
             return <InformationText/>
     }
