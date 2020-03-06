@@ -4,7 +4,6 @@ import '../../App.css';
 import Header from './Header';
 import Footer from './Footer';
 import SummaryTable from '../Charts/SummaryTable';
-import LineChart from '../Charts/LineChart';
 import PieChart from '../Charts/PieChart';
 
 //Create PieChart Here
@@ -24,7 +23,7 @@ const InformationSection = props => {
   var type = props.type;
   switch (type) {
     case 'PieChart':
-      return <PieChart />;
+      return <PieChart chartName={props.dataid} />;
     case 'InformationText':
       return <InformationText />;
     case 'SummaryTable':
