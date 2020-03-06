@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
 
 function PieChart(props) {
-  var dataObjects = [
-    ['string1', 1],
-    ['string2', 2],
-    ['string3', 3],
-    ['string4', 4]
-  ];
+  
+  var dataObjects = google.visualization.arrayToDataTable([
+    ['Alert Status', 'Percentage of Total']
+    ['Medium Alert', 64],
+    ['High Alert', 27],
+    ['Critical Alert', 9]
+  ]);
+
+  var options = {
+    title: 'Example Pie Chart'
+  };
 
   const renderTable = () => {
     var data = new window.google.visualization.DataTable();
-    data.addColumn('string', 'Test');
-    data.addColumn('number', 'Test');
+    data.addColumn('string', 'Status Category');
+    data.addColumn('number', 'Percentage');
 
     for (var dataObject of dataObjects) {
       data.addRow(dataObject);
     }
-
-    var options = {
-      sort: 'disable',
-      allowHtml: true
-    };
 
     var chart = new window.google.visualization.PieChart(
       document.getElementById(props.chartName)
@@ -38,7 +38,7 @@ function PieChart(props) {
     renderTable();
   });
 
-  return <div id={props.chartName}></div>;
+  return <div id={props.chart}></div>;
 }
 
 export default PieChart;
