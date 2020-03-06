@@ -4,11 +4,18 @@ import '../App.css';
 import TemplateOneTitlePage from './TemplateOnePages/TemplateOneTitlePage'
 import TemplateOneTableOfContents from './TemplateOnePages/TemplateOneTableOfContents';
 import ReportPage from './TemplateOnePages/ReportPage';
+import {processApi} from './APIHandler';
 
 
 class PageController extends Component {
     constructor(props) {
         super(props);
+        // Call API to get Table of Contents
+        var toc = processApi("ToC")
+
+        //Massage Data from ToC Api to first a list format for each report page
+        //TODO
+
         //This is just test information to show population of ReportPage
         var reportPageInfo1 = {"objectList":[{"id":"SampleID", "type":"PieChart"},{"id":"SampleID1", "type":"PieChart"}], "title":"Great First Page", "pageNumber":1}
         var reportPageInfo2 = {"objectList":[{"id":"SampleID2", "type":"InformationText"},{"id":"SampleID3", "type":"InformationText"}], "title":"Great Second Page", "pageNumber":2}
