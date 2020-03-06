@@ -5,6 +5,9 @@ import Header from './Header';
 import Footer from './Footer';
 import SummaryTable from '../Charts/SummaryTable';
 import PieChart from '../Charts/PieChart';
+import GraphTable from '../Charts/GraphTable';
+import DonutChart from '../Charts/DonutChart';
+import SimpleTable from '../Charts/SimpleTable';
 
 //Create PieChart Here
 // const PieChart = function() {
@@ -19,19 +22,25 @@ const InformationText = function() {
 //Handler that will triage the creation of the display type we are looking for
 //Inputs:
 //--- props.type - "PieChart", "InformationText"
-const InformationSection = props => {
-  var type = props.type;
-  switch (type) {
-    case 'PieChart':
-      return <PieChart chartName={props.dataid} />;
-    case 'InformationText':
-      return <InformationText />;
-    case 'SummaryTable':
-      return <SummaryTable tableName={props.dataid} />;
-    default:
-      return <InformationText />;
-  }
-};
+const InformationSection = (props) => {
+    var type = props.type;
+    switch (type) {
+        case "PieChart":
+            return <PieChart chartName={props.dataid} />
+        case "InformationText":
+            return <InformationText/>
+        case "SummaryTable":
+            return <SummaryTable tableName={props.dataid} />
+        case "GraphTable":
+            return <GraphTable tableName={props.dataid} />
+        case "DonutChart":
+            return <DonutChart chartName={props.dataid} />
+        case "SimpleTable":
+            return <SimpleTable tableName={props.dataid} />
+        default:
+            return <InformationText/>
+    }
+}
 
 //Read in prop for this page based on what is passed from API
 const ReportPage = props => {
