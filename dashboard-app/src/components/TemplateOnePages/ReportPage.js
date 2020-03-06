@@ -32,7 +32,7 @@ const InformationSection = (props) => {
         case "GraphTable":
             return <GraphTable tableName={props.dataid} />
         case "DonutChart":
-            return <DonutChart tableName={props.dataid} />
+            return <DonutChart chartName={props.dataid} />
         default:
             return <InformationText/>
     }

@@ -36,7 +36,7 @@ function DonutChart(props) {
             sliceVisibilityThreshold: 0
         };
 
-        var table = new window.google.visualization.PieChart(document.getElementById(props.tableName));
+        var table = new window.google.visualization.PieChart(document.getElementById(props.chartName));
         table.draw(data, options);
     }
     
@@ -51,7 +51,7 @@ function DonutChart(props) {
     })
 
     return (
-        <div id={props.tableName}></div>
+        <div id={props.chartName}></div>
     );
 }
 
