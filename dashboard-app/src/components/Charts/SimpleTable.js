@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 
 
+/*
+    Expected data: List of dictionaries, with each key being the column name and each value being the row value
+    [ {"Column1": "Value1", "Column2": "Value2"}, {"Column1", "Value3", "Column2": "Value4"} ]
+*/
 const SimpleTable = (props) => {
 
     // temporary, will replace with json handled through props
@@ -15,12 +19,13 @@ const SimpleTable = (props) => {
 
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
-        // TODO replace column generation with columns given by data fields
 
+        // Add the given columns from the data, using the first entry as a basis
         for (var column in dataObjects[0]) {
             data.addColumn('string', column);
         }
         
+        // Add each row of data, using given order
         for (var dataObject of dataObjects) {
             var row = [];
             for (var key in dataObject) {
