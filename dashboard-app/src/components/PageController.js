@@ -20,7 +20,8 @@ class PageController extends Component {
         var reportPageInfo1 = {"objectList":[{"id":"SampleID", "type":"PieChart"},{"id":"SampleID1", "type":"PieChart"}], "title":"Great First Page", "pageNumber":1}
         var reportPageInfo2 = {"objectList":[{"id":"SampleID2", "type":"InformationText"},{"id":"SampleID3", "type":"InformationText"}], "title":"Great Second Page", "pageNumber":2}
         var reportPageInfo3 = {"objectList":[{"id":"SampleID4", "type":"InformationText"},{"id":"SampleID5", "type":"PieChart"}], "title":"OK Third Page", "pageNumber":3}
-        var reportPageInfo4 = {"objectList":[{"id":"SampleID6", "type":"SummaryTable"}, {"id":"SampleID7", "type":"GraphTable"}, {"id":"SampleID8", "type":"DonutChart"}, {"id": "SampleID9", "type":"SimpleTable"}], "title": "Fourth Page Table", "pageNumber":4}
+        var reportPageInfo4 = {"objectList":[{"id":"SampleID6", "type":"SummaryTable"}, {"id":"SampleID7", "type":"GraphTable"}, {"id":"SampleID8", "type":"DonutChart"},
+                                             {"id": "SampleID9", "type":"SimpleTable"}, {"id": "SampleID10", "type":"BarChart"}], "title": "Fourth Page Table", "pageNumber":4}
         var informationFromApi = [reportPageInfo1, reportPageInfo2, reportPageInfo3, reportPageInfo4]
         this.state = {
           informationFromApi: informationFromApi,
