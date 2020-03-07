@@ -4,14 +4,11 @@ import '../../App.css';
 import Header from './Header';
 import Footer from './Footer';
 import SummaryTable from '../Charts/SummaryTable';
-<<<<<<< HEAD
 import PieChart from '../Charts/PieChart';
-=======
 import GraphTable from '../Charts/GraphTable';
 import DonutChart from '../Charts/DonutChart';
 import SimpleTable from '../Charts/SimpleTable';
 import BarChart from '../Charts/BarChart';
->>>>>>> 6da5db4fc5f75d12caca6763dc1ecc8502f03eee
 
 //Create PieChart Here
 // const PieChart = function() {
@@ -26,7 +23,7 @@ const InformationText = function() {
 //Handler that will triage the creation of the display type we are looking for
 //Inputs:
 //--- props.type - "PieChart", "InformationText"
-<<<<<<< HEAD
+
 const InformationSection = props => {
   var type = props.type;
   switch (type) {
@@ -36,33 +33,18 @@ const InformationSection = props => {
       return <InformationText />;
     case 'SummaryTable':
       return <SummaryTable tableName={props.dataid} />;
+    case 'GraphTable':
+      return <GraphTable tableName={props.dataid} />;
+    case 'DonutChart':
+      return <DonutChart chartName={props.dataid} />;
+    case 'SimpleTable':
+      return <SimpleTable tableName={props.dataid} />;
+    case 'BarChart':
+      return <BarChart chartName={props.dataid} />;
     default:
       return <InformationText />;
   }
 };
-=======
-const InformationSection = (props) => {
-    var type = props.type;
-    switch (type) {
-        case "PieChart":
-            return <PieChart/>
-        case "InformationText":
-            return <InformationText/>
-        case "SummaryTable":
-            return <SummaryTable tableName={props.dataid} />
-        case "GraphTable":
-            return <GraphTable tableName={props.dataid} />
-        case "DonutChart":
-            return <DonutChart chartName={props.dataid} />
-        case "SimpleTable":
-            return <SimpleTable tableName={props.dataid} />
-        case "BarChart":
-            return <BarChart chartName={props.dataid} />
-        default:
-            return <InformationText/>
-    }
-}
->>>>>>> 6da5db4fc5f75d12caca6763dc1ecc8502f03eee
 
 //Read in prop for this page based on what is passed from API
 const ReportPage = props => {

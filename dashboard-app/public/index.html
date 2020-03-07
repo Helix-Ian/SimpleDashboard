@@ -25,13 +25,9 @@
       window.googleChartsLoadFunctions = [];
 
       // Add packages to be loaded by Google Charts to the 'packages' array
-<<<<<<< HEAD
-      google.charts.load('current', { packages: ['table', 'corechart'] });
 
-=======
       google.charts.load('current', {'packages': ['table', 'corechart']});
       
->>>>>>> 6da5db4fc5f75d12caca6763dc1ecc8502f03eee
       google.charts.setOnLoadCallback(() => {
         window.isGoogleChartsLoaded = true;
         for (var listener of window.googleChartsLoadFunctions) {
