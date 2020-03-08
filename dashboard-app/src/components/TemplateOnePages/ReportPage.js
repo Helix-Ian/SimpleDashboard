@@ -8,6 +8,7 @@ import GraphTable from '../Charts/GraphTable';
 import DonutChart from '../Charts/DonutChart';
 import SimpleTable from '../Charts/SimpleTable';
 import BarChart from '../Charts/BarChart';
+import AreaChart from '../Charts/AreaChart';
 
 //Create PieChart Here
 const PieChart = function() {
@@ -39,6 +40,8 @@ const InformationSection = (props) => {
             return <SimpleTable tableName={props.dataid} />
         case "BarChart":
             return <BarChart chartName={props.dataid} />
+        case "AreaChart":
+            return <AreaChart chartName={props.dataid} />
         default:
             return <InformationText/>
     }
