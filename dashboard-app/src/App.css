@@ -68,3 +68,54 @@
   padding-bottom: 10px;
   background-color: beige;
 }
+
+.ContentStyle_0 {
+  padding-left: 5px;
+  font-size: 16px;
+}
+
+.ContentStyle_1 {
+  padding-left: 20px;
+  font-size: 12px;
+}
+
+.ContentStyle_2 {
+  padding-left: 40px;
+  font-size: 10px;
+}
+
+.TOCRow:after {
+  content: "";
+  clear: both;
+}
+
+.TOCRow {
+  border-bottom: black;
+  border-right: 0px;
+  border-left: 0px;
+  border-top: 0px;
+  border-bottom: 1px;
+  border-style: dotted;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.TOCColumnLeft {
+  display: inline-block;
+  width: 95%;
+}
+
+.TOCColumnRight {
+  display: inline-block;
+  width: 5%;
+}
+
+.TOCContainer {
+  float: right;
+  width: 25%;
+}
+
+.ReportContainer {
+  display: inline-block;
+  width: 75%;
+}
