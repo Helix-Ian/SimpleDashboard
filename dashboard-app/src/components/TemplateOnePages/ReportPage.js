@@ -24,7 +24,7 @@ const InformationText = function() {
 //Inputs:
 //--- props.type - "PieChart", "InformationText"
 const InformationSection = (props) => {
-    var type = props.type;
+    var type = props.info.DisplayType;
     switch (type) {
         case "PieChart":
             return <PieChart/>
@@ -32,12 +32,12 @@ const InformationSection = (props) => {
             return <InformationText/>
         case "SummaryTable":
             return <SummaryTable tableName={props.dataid} />
-        case "GraphTable":
-            return <GraphTable tableName={props.dataid} />
+        case "ChartTable":
+            return <GraphTable info={props.info}/>
         case "DonutChart":
             return <DonutChart chartName={props.dataid} />
-        case "SimpleTable":
-            return <SimpleTable tableName={props.dataid} />
+        case "Table":
+            return <SimpleTable info={props.info}/>
         case "BarChart":
             return <BarChart chartName={props.dataid} />
         case "AreaChart":
@@ -52,14 +52,14 @@ const ReportPage = (props) => {
     var pageJson = props.pageJson
     var title = pageJson.title
     var pageNumber = pageJson.pageNumber
-    var objectList = pageJson.objectList
+    var objectList = pageJson.objectList 
     
     return(
-    <div>
+    <div className="ReportPageOuterStyle">
         <Header title={title}/>
         {objectList.map(obj =>
             // Added a 'dataid' prop to pass to chart components ('key' is not accessible) so that the divs can have unique IDs
-            <InformationSection key={obj.id} dataid={obj.id} type={obj.type}/>
+            <InformationSection key={obj.Access} info={obj}/>
         )}
         <Footer pageNumber={pageNumber}/>
     </div>

@@ -43,6 +43,14 @@
   color: white;
 }
 
+.ReportPageOuterStyle {
+  padding: 20px;
+  margin: 20px;
+  border: solid;
+  border-width: 1px;
+  border-color: black;
+}
+
 .TestHeader {
   padding-top: 30px;
   padding-bottom: 30px;
@@ -100,4 +108,14 @@
 .TOCColumnRight {
   display: inline-block;
   width: 5%;
+}
+
+.TOCContainer {
+  float: right;
+  width: 25%;
+}
+
+.ReportContainer {
+  display: inline-block;
+  width: 75%;
 }
