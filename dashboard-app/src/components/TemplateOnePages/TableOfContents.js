@@ -9,16 +9,17 @@ const InnerObj = (props) => {
     if (!content) {
         return null
     }
+
     return (
         <div>
             <div>            
-                {content.map(innerContent =>
-                <div>
+                {content.map((innerContent, i) =>
+                  <div onClick={() => props.refArray[i].current.scrollIntoView({behavior:'smooth'})}>
                     <div className={"TOCRow + ContentStyle_" + depth}>
-                        <div className="TOCColumnLeft"  key={innerContent.Access} onClick={e => {props.onClick(e, innerContent.Access)}}>{innerContent.Title}</div>
+                        <div className="TOCColumnLeft"  key={innerContent.Access}>{innerContent.Title}</div>
                         <div className="TOCColumnRight">{depth}</div>
                     </div>
-                    <InnerObj content={innerContent.Sub} onClick={e => {props.onClick(e, innerContent.Access)}} depth={depth+1}/>
+                    <InnerObj content={innerContent.Sub} depth={depth+1} refArray={props.refArray}/>
                 </div>
                 )}
             </div>
@@ -27,8 +28,8 @@ const InnerObj = (props) => {
 }
 
 const TableOfContents = (props) => {
-
-    return(<InnerObj content={props.tocJson} onClick={props.onClick} depth={0}/>)
+    return(<InnerObj content={props.tocJson} refArray={props.refArray} depth={0}/>)
 }
 
 export default TableOfContents;
+

@@ -13,7 +13,6 @@ class PageController extends Component {
         // Call API to get Table of Contents
         var tocJson = processApi("ToC")
         var toc = tocJson.ToC
-
         //Massage Data from ToC Api to first a list format for each report page
         //TODO
 
@@ -25,45 +24,48 @@ class PageController extends Component {
           informationFromApi.push({"objectList":[processApi(currentAccess)], "pageNumber":currPageNumber});
           currPageNumber++;
         }
+
+        //Set initial state here for anything inside of the page controller
         this.state = {
-          informationFromApi: informationFromApi,
+          informationFromApi,
           currentSelection: "",
-          ToCSeed: ""
+          ToCSeed: "",
         };
 
-        //Put bound functions below
-        this.setCurrentPage = this.setCurrentPage.bind(this)
+        this.refArray = []
+        this.updateRefArray(this.state.informationFromApi)
+      }
+      //updates refArray with Ref for each index. 
+      updateRefArray(dataArray) {
+        this.refArray = dataArray.map(() => React.createRef()); 
       }
 
-      componentDidMount() {
+      componentDidMount = () => {
         //kick off apis here
         var tocJson = processApi("ToC")
         var toc = tocJson.ToC
         this.setState({
           ToCSeed: toc
         })
-      }     
 
-      setCurrentPage(e, key){
-        this.setState({
-          currentSelection: key
-        })
-      }
+      } 
   
       //We will need to pass in props to report pages. Here we render the template page and then all info that 
       //Serge will pass to us
       render() {
-  
+
         return (
         <div>
           <div className="ControllerContainer">
             <div className="ReportContainer">
-              {this.state.informationFromApi.map(info =>
+              {this.state.informationFromApi.map((info, i)=>
+                <div key={i} className={`Page${info.pageNumber} Wrapper`} ref={this.refArray[i]}>
                   <ReportPage key={info.pageNumber} pageJson={info}/>
+                </div>
               )}
             </div>
             <div className="TOCContainer">
-              <TableOfContents onClick={this.setCurrentPage} tocJson={this.state.ToCSeed}/>
+              <TableOfContents refArray={this.refArray} tocJson={this.state.ToCSeed}/>
             </div>
           </div>
         </div>
