@@ -25,20 +25,17 @@ class PageController extends Component {
           currPageNumber++;
         }
 
-        //STATE
+        //Set initial state here for anything inside of the page controller
         this.state = {
           informationFromApi,
           currentSelection: "",
           ToCSeed: "",
-          //informationFromApi
         };
-        this.setState({
-          ToCSeed: toc
-        })
+
         this.refArray = []
         this.updateRefArray(this.state.informationFromApi)
       }
-        
+      //updates refArray with Ref for each index. 
       updateRefArray(dataArray) {
         this.refArray = dataArray.map(() => React.createRef()); 
       }
@@ -77,38 +74,3 @@ class PageController extends Component {
     }
 
 export default PageController;
-/*
-return (
-  <div>
-    <div><button onClick={() => {
-      const newTasks = this.state.tasks.concat([{
-        name: "Task " + this.state.tasks.length + 1,
-        color: randomColor()
-      }]);
-      this.setState({tasks: newTasks});
-
-      // We have to manually update the array
-      // Error-prone!
-      this.updateRefsArray(newTasks);
-    }}>Add new Task</button></div>
-    {this.state.tasks.map((task, i) => (
-      <button
-        key={i}
-        onClick={() => { 
-          // Notice we need to access the current attribute
-          this.refsArray[i].current.scrollIntoView(); 
-        }}>
-        Go to {task.name}
-      </button>
-    ))}
-    {this.state.tasks.map((task, i) => (
-      <div 
-        key={i}
-        ref={this.refsArray[i]} 
-        style={{height: "100px", backgroundColor: task.color}}>
-        {task.name}
-      </div>
-    ))}
-  </div>
-);
-*/
