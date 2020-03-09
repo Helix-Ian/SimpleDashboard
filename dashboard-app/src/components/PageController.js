@@ -17,22 +17,42 @@ class PageController extends Component {
         var informationFromApi = [reportPageInfo1, reportPageInfo2, reportPageInfo3]
         this.state = {
           informationFromApi: informationFromApi,
+          currentSelection: "",
         };
-      } 
+
+        //Put bound functions below
+        this.setCurrentPage = this.setCurrentPage.bind(this)
+      }
+
+    setCurrentPage(e, randomSeed){
+      this.setState({
+        currentSelection: randomSeed
+      })
+     }
   
     //We will need to pass in props to report pages. Here we render the template page and then all info that 
     //Serge will pass to us
     render() {   
   
-      return (
-      <div>
-        <TemplateOneTitlePage/>
-        <TableOfContents/>
-        {this.state.informationFromApi.map(info =>
-            <ReportPage pageJson={info}/>
-        )}
-      </div>
-      );
+      if(this.state.currentSelection === "") {
+        return (
+        <div>
+          <TemplateOneTitlePage/>
+          <TableOfContents onClick={this.setCurrentPage}/>
+          {this.state.informationFromApi.map(info =>
+              <ReportPage pageJson={info}/>
+          )}
+        </div>
+        );
+      } else {
+        return (
+          <div>
+            <TemplateOneTitlePage/>
+            <TableOfContents onClick={this.setCurrentPage}/>
+            <ReportPage pageJson={this.state.informationFromApi[this.state.currentSelection]}/>
+          </div>
+          );
+      }
     }
   }
 

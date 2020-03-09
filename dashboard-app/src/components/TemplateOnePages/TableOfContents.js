@@ -5,6 +5,12 @@ import '../../App.css';
 const InnerObj = (props) => {
     var content = props.content
     var depth = props.depth
+
+    //generate random report seed
+    function getRandomReport() {
+        return Math.floor(Math.random() * 3)
+    }
+
     if (!content) {
         return null
     }
@@ -14,10 +20,10 @@ const InnerObj = (props) => {
                 {content.map(innerContent =>
                 <div>
                     <div className={"TOCRow + ContentStyle_" + depth}>
-                        <div className="TOCColumnLeft"  key={innerContent.Access}>{innerContent.Title}</div>
+                        <div className="TOCColumnLeft"  key={innerContent.Access} reportNumber={props.reportNumber} onClick={e => {props.onClick(e, props.reportNumber)}}>{innerContent.Title}</div>
                         <div className="TOCColumnRight">{depth}</div>
                     </div>
-                    <InnerObj content={innerContent.Sub} depth={depth+1}/>
+                    <InnerObj content={innerContent.Sub} reportNumber ={props.reportNumber} onClick={e => {props.onClick(e, props.reportNumber)}} depth={depth+1}/>
                 </div>
                 )}
             </div>
@@ -65,8 +71,12 @@ const TableOfContents = (props) => {
 ]
     }
     var tocContent = json.ToC
+    //generate random report seed
+    function getRandomReport() {
+        return Math.floor(Math.random() * 3)
+    }
 
-    return(<InnerObj content={tocContent} depth={0}/>)
+    return(<InnerObj content={tocContent} reportNumber={getRandomReport()} onClick={props.onClick} depth={0}/>)
 }
 
 export default TableOfContents;
