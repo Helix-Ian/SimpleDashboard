@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 
 function DonutChart(props) {
 
+    var accessType = props.info.Access;
+
     var dataObjects = [['Web.Client', 36.14], ['Network.Service', 36.08], ['Collaboration', 10.48], ['Business', 7.64],
                        ['Email', 6.61], ['Remote.Access', 1.71], ['Storage.Backup', 1.16], ['Update', 0.11],
                        ['Mobile', 0.04], ['Proxy', 0.01], ['Others', 0.01]];
@@ -36,7 +38,7 @@ function DonutChart(props) {
             sliceVisibilityThreshold: 0
         };
 
-        var table = new window.google.visualization.PieChart(document.getElementById(props.chartName));
+        var table = new window.google.visualization.PieChart(document.getElementById(accessType));
         table.draw(data, options);
     }
     
@@ -51,7 +53,7 @@ function DonutChart(props) {
     })
 
     return (
-        <div id={props.chartName}></div>
+        <div id={accessType}></div>
     );
 }
 

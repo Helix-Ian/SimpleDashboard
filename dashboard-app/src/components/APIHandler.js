@@ -15,17 +15,26 @@ export const processApi = (type) => {
         case "ToC":
             apiResponse = getTableOfContents();
             break;
-        case "SummaryTable":
+        case "CriticalRiskApplicationsDetailed":
             apiResponse = getSummaryTable();
             break;
         case "Top20IntrusionsByTypes":
             apiResponse = getChartTable();
             break;
-        case "PieChart":
+        case "ExploitAttackBySeverity":
             apiResponse = getPieChart();
             break;
         case "MonitoredSystems":
             apiResponse = getTable();
+            break;
+        case "AreaChart":
+            apiResponse = getAreaChart();
+            break;
+        case "DonutChartAccess":
+            apiResponse = getDonutChart();
+            break;
+        case "BarChartAccess":
+            apiResponse = getBarChart();
             break;
         default:
             return "There has been an invalid type passed in"
@@ -50,15 +59,50 @@ const getTableOfContents = function() {
                         "Access": "ExploitAttackBySeverity",
                     },
                     {
-                        "Title": "Monitored Systems",
-                        "Access": "MonitoredSystems"
+                        "Title": "Area Chart",
+                        "Access": "AreaChart"
                     },
                     {
                         "Title": "Critical Risk Applications Detailed",
                         "Access": "CriticalRiskApplicationsDetailed"
+                    },
+                    {
+                        "Title": "Donut Chart",
+                        "Access": "DonutChartAccess"
+                    },
+                    {
+                        "Title": "Bar Chart",
+                        "Access": "BarChartAccess"
                     }
                     ]
                 }
+}
+
+const getAreaChart = function() {
+    return {
+        "Access": "AreaChart",
+        "DisplayType": "AreaChart",
+        "Data": [
+        ]
+    }
+}
+
+const getDonutChart = function() {
+    return {
+        "Access": "DonutChartAccess",
+        "DisplayType": "DonutChart",
+        "Data": [
+        ]
+    }
+}
+
+const getBarChart = function() {
+    return {
+        "Access": "BarChartAccess",
+        "DisplayType": "BarChart",
+        "Data": [
+        ]
+    }
 }
 
 const getPieChart = function() {

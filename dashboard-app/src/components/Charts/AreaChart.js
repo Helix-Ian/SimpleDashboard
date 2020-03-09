@@ -10,6 +10,7 @@ function AreaChart(props) {
     //                    ['14:00', 4.2], ['16:00', 2.8], ['18:00', 2.0], ['20:00', 1.8], ['22:00', 4.1], ['0:00', 2.0]];
 
     // dual value testing
+    var accessType = props.info.Access
     var dataObjects = [['1/26/2020', 0.0, 1.2], ['1/26/2020', 0.0, 2.0], ['1/27/2020', 3.1, 2.3], ['1/27/2020', 2.0, 8.0],
                        ['1/28/2020', 1.6, 1.7], ['1/28/2020', 5.1, 3.1], ['1/29/2020', 1.5, 1.1], ['1/29/2020', 1.6, 4.0]];
 
@@ -54,7 +55,7 @@ function AreaChart(props) {
             }
         };
 
-        var table = new window.google.visualization.AreaChart(document.getElementById(props.chartName));
+        var table = new window.google.visualization.AreaChart(document.getElementById(accessType));
         table.draw(data, options);
     }
     
@@ -69,7 +70,7 @@ function AreaChart(props) {
     })
 
     return (
-        <div id={props.chartName}></div>
+        <div id={accessType}></div>
     );
 }
 
