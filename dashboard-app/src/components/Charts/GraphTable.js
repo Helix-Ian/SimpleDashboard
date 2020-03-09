@@ -26,7 +26,7 @@ function GraphTable(props) {
         var data = new window.google.visualization.DataTable();
         //Create column headers and define column types
         for (var key in dataObjects[0]) {
-            var columnType = key != 'Counts' ? 'string' : 'number'
+            var columnType = key !== 'Counts' ? 'string' : 'number'
             data.addColumn(columnType, key);
         }
         
