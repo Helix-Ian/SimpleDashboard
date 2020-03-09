@@ -19,6 +19,13 @@ class PageController extends Component {
         this.pageNumber = 1;
       }
 
+      /**
+       * This recrusive function goes into nested layers of the ToC and returns one list of paginated items
+       * @param info - the information of the current "depth" of the table of contents we are in
+       * @param paginatedList - maintained paginated list that will be used to populate report pages
+       * 
+       * @return the list of paginated ToC elements in the recursive process
+       */
       paginateToC(info, paginatedList) {
         if (!info) {
             return;
