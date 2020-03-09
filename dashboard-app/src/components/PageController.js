@@ -10,31 +10,28 @@ class PageController extends Component {
 
     constructor(props) {
         super(props);
-        // Call API to get Table of Contents
-        var tocJson = processApi("ToC")
-        var toc = tocJson.ToC
-        //Massage Data from ToC Api to first a list format for each report page
-        //TODO
-
-        //Create page content based on ToC
-        var informationFromApi = [];
-        var currPageNumber = 1;
-        for (var item of toc) {
-          var currentAccess = item.Access;
-          informationFromApi.push({"objectList":[processApi(currentAccess)], "pageNumber":currPageNumber});
-          currPageNumber++;
-        }
-
         //Set initial state here for anything inside of the page controller
         this.state = {
-          informationFromApi,
+          informationFromApi: [],
           currentSelection: "",
-          ToCSeed: "",
+          ToCSeed: ""
         };
-
-        this.refArray = []
-        this.updateRefArray(this.state.informationFromApi)
+        this.pageNumber = 1;
       }
+
+      paginateToC(info, paginatedList) {
+        if (!info) {
+            return;
+        }
+       for (var i = 0; i < info.length; i++) {
+           var currentObject = info[i];
+           var currentAccess = currentObject.Access;
+           paginatedList.push({"objectList":[processApi(currentAccess)], "pageNumber":this.pageNumber});
+           this.pageNumber += 1;
+       }
+       return paginatedList;
+      }
+
       //updates refArray with Ref for each index. 
       updateRefArray(dataArray) {
         this.refArray = dataArray.map(() => React.createRef()); 
@@ -44,16 +41,21 @@ class PageController extends Component {
         //kick off apis here
         var tocJson = processApi("ToC")
         var toc = tocJson.ToC
+
+        //Massage Data from ToC Api to first a list format for each report page
+        var informationFromApi = this.paginateToC(toc, [])
         this.setState({
-          ToCSeed: toc
+          ToCSeed: toc,
+          informationFromApi
         })
 
+        this.refArray = []
+        this.updateRefArray(informationFromApi)
       } 
   
       //We will need to pass in props to report pages. Here we render the template page and then all info that 
       //Serge will pass to us
       render() {
-
         return (
         <div>
           <div className="ControllerContainer">
