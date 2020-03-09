@@ -1,8 +1,14 @@
 import React from 'react';
 //import { Link } from 'react-router-dom';
 import '../../App.css';
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
+import SummaryTable from '../Charts/SummaryTable';
+import GraphTable from '../Charts/GraphTable';
+import DonutChart from '../Charts/DonutChart';
+import SimpleTable from '../Charts/SimpleTable';
+import BarChart from '../Charts/BarChart';
+import AreaChart from '../Charts/AreaChart';
 
 //Create PieChart Here
 const PieChart = function() {
@@ -24,6 +30,18 @@ const InformationSection = (props) => {
             return <PieChart/>
         case "InformationText":
             return <InformationText/>
+        case "SummaryTable":
+            return <SummaryTable tableName={props.dataid} />
+        case "GraphTable":
+            return <GraphTable tableName={props.dataid} />
+        case "DonutChart":
+            return <DonutChart chartName={props.dataid} />
+        case "SimpleTable":
+            return <SimpleTable tableName={props.dataid} />
+        case "BarChart":
+            return <BarChart chartName={props.dataid} />
+        case "AreaChart":
+            return <AreaChart chartName={props.dataid} />
         default:
             return <InformationText/>
     }
@@ -40,7 +58,8 @@ const ReportPage = (props) => {
     <div>
         <Header title={title}/>
         {objectList.map(obj =>
-            <InformationSection key={obj.id} type={obj.type}/>
+            // Added a 'dataid' prop to pass to chart components ('key' is not accessible) so that the divs can have unique IDs
+            <InformationSection key={obj.id} dataid={obj.id} type={obj.type}/>
         )}
         <Footer pageNumber={pageNumber}/>
     </div>
