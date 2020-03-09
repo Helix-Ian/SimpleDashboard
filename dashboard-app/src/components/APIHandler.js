@@ -18,11 +18,14 @@ export const processApi = (type) => {
         case "SummaryTable":
             apiResponse = getSummaryTable();
             break;
-        case "GraphTable":
-            apiResponse = getGraphTable();
+        case "Top20IntrusionsByTypes":
+            apiResponse = getChartTable();
             break;
         case "PieChart":
-            apiResponse = getPieChart()
+            apiResponse = getPieChart();
+            break;
+        case "MonitoredSystems":
+            apiResponse = getTable();
             break;
         default:
             return "There has been an invalid type passed in"
@@ -33,13 +36,10 @@ export const processApi = (type) => {
 
 const getTableOfContents = function() {
     //Call API
-    return {"ToC": [{
-        "Title": "Critical Risk Applications - Detailed",
-        "Access": "CriticalRiskApplicationsDetailed"
-    },
+    return {"ToC": [
     {
-        "Title": "Exploit Attack by Severity",
-        "Access": "ExploitAttackBySeverity"
+        "Title": "Monitored Systems",
+        "Access": "MonitoredSystems"
     },
     {
         "Title": "Top 20 Intrusions by Types",
@@ -61,11 +61,12 @@ const getPieChart = function() {
     }
 }
 
-const getGraphTable = function() {
+const getChartTable = function() {
     //Call API
     return {
         "Access": "Top20IntrusionsByTypes",
         "DisplayType": "ChartTable",
+        "Title" : "Top Intrusions by Type",
         "Data": [
             {
                 "IntrusionType": "Anomaly",

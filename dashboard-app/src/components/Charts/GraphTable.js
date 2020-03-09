@@ -1,16 +1,42 @@
 import React, { useEffect } from 'react';
 
+/*
+props will have 1 key "info" - it will have this structure. Access will be the unique key of the 
+chart and Title will be its title. The data of the chart will come in the structure shown below. Counts
+will be the only column that is a numeric value and all other values will be strings.
+{
+    "Access": "AccessType",
+    "DisplayType": "ChartTable",
+    "Title" : "Chart Title",
+    "Data": [
+        {
+            "Column1": "rowValue",
+            "Column2": 1000
+        }
+    ]
+}
+*/
+
 function GraphTable(props) {
 
-    var dataObjects = [["Anomaly", 1460], ["SQL Injection", 402], ["Code Injection", 212], ["OS Command Injection", 143]];
-
+    var dataObjects = props.info.Data
+    var accessType = props.info.Access
+    
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
-        data.addColumn('string', 'Intrusion Type');
-        data.addColumn('number', 'Counts');
+        //Create column headers and define column types
+        for (var key in dataObjects[0]) {
+            var columnType = key != 'Counts' ? 'string' : 'number'
+            data.addColumn(columnType, key);
+        }
         
+        //Organize row data for each column from the json
         for (var dataObject of dataObjects) {
-            data.addRow(dataObject);
+            var rowObj = [];
+            for (var key in dataObject) {
+                rowObj.push(dataObject[key]);
+            }
+            data.addRow(rowObj);
         }
 
         var barFormat = new window.google.visualization.BarFormat({base: 0, min: 0});
@@ -21,7 +47,7 @@ function GraphTable(props) {
             allowHtml: true
         };
 
-        var table = new window.google.visualization.Table(document.getElementById(props.tableName));
+        var table = new window.google.visualization.Table(document.getElementById(accessType));
         table.draw(data, options);
     }
     
@@ -36,7 +62,7 @@ function GraphTable(props) {
     })
 
     return (
-        <div id={props.tableName}></div>
+        <div id={accessType}></div>
     );
 }
 
