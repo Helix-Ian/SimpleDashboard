@@ -37,15 +37,28 @@ export const processApi = (type) => {
 const getTableOfContents = function() {
     //Call API
     return {"ToC": [
-    {
-        "Title": "Monitored Systems",
-        "Access": "MonitoredSystems"
-    },
-    {
-        "Title": "Top 20 Intrusions by Types",
-        "Access": "Top20IntrusionsByTypes"
-    }
-]}
+                    {
+                        "Title": "Monitored Systems",
+                        "Access": "MonitoredSystems"
+                    },
+                    {
+                        "Title": "Top 20 Intrusions by Types",
+                        "Access": "Top20IntrusionsByTypes"
+                    },
+                    {
+                        "Title": "Exploit Attack By Severity",
+                        "Access": "ExploitAttackBySeverity",
+                    },
+                    {
+                        "Title": "Monitored Systems",
+                        "Access": "MonitoredSystems"
+                    },
+                    {
+                        "Title": "Critical Risk Applications Detailed",
+                        "Access": "CriticalRiskApplicationsDetailed"
+                    }
+                    ]
+                }
 }
 
 const getPieChart = function() {
