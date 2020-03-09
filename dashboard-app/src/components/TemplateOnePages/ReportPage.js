@@ -41,7 +41,7 @@ const InformationSection = (props) => {
         case "BarChart":
             return <BarChart chartName={props.dataid} />
         case "AreaChart":
-            return <AreaChart chartName={props.dataid} />
+            return <AreaChart info={props.info} />
         default:
             return <InformationText/>
     }
