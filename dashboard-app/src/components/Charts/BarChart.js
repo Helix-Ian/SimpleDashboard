@@ -5,6 +5,8 @@ import React, { useEffect } from 'react';
 */
 function BarChart(props) {
 
+    var accessType = props.info.Access;
+
     var dataObjects = [['1/27/2020', 10], ['1/28/2020', 14], ['1/29/2020', 29], ['1/30/2020', 4], ['1/31/2020', 17], ['2/1/2020', 3], ['2/2/2020', 15]];
 
     const renderTable = () => {
@@ -27,7 +29,7 @@ function BarChart(props) {
             }
         };
 
-        var table = new window.google.visualization.ColumnChart(document.getElementById(props.chartName));
+        var table = new window.google.visualization.ColumnChart(document.getElementById(accessType));
         table.draw(data, options);
     }
     
@@ -42,7 +44,7 @@ function BarChart(props) {
     })
 
     return (
-        <div id={props.chartName}></div>
+        <div id={accessType}></div>
     );
 }
 

@@ -35,11 +35,11 @@ const InformationSection = (props) => {
         case "ChartTable":
             return <GraphTable info={props.info}/>
         case "DonutChart":
-            return <DonutChart chartName={props.dataid} />
+            return <DonutChart info={props.info} />
         case "Table":
             return <SimpleTable info={props.info}/>
         case "BarChart":
-            return <BarChart chartName={props.dataid} />
+            return <BarChart info={props.info} />
         case "AreaChart":
             return <AreaChart info={props.info} />
         default:

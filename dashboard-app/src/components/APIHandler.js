@@ -30,6 +30,12 @@ export const processApi = (type) => {
         case "AreaChart":
             apiResponse = getAreaChart();
             break;
+        case "DonutChartAccess":
+            apiResponse = getDonutChart();
+            break;
+        case "BarChartAccess":
+            apiResponse = getBarChart();
+            break;
         default:
             return "There has been an invalid type passed in"
     }
@@ -59,6 +65,14 @@ const getTableOfContents = function() {
                     {
                         "Title": "Critical Risk Applications Detailed",
                         "Access": "CriticalRiskApplicationsDetailed"
+                    },
+                    {
+                        "Title": "Donut Chart",
+                        "Access": "DonutChartAccess"
+                    },
+                    {
+                        "Title": "Bar Chart",
+                        "Access": "BarChartAccess"
                     }
                     ]
                 }
@@ -68,6 +82,24 @@ const getAreaChart = function() {
     return {
         "Access": "AreaChart",
         "DisplayType": "AreaChart",
+        "Data": [
+        ]
+    }
+}
+
+const getDonutChart = function() {
+    return {
+        "Access": "DonutChartAccess",
+        "DisplayType": "DonutChart",
+        "Data": [
+        ]
+    }
+}
+
+const getBarChart = function() {
+    return {
+        "Access": "BarChartAccess",
+        "DisplayType": "BarChart",
         "Data": [
         ]
     }
