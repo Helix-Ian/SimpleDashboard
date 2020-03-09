@@ -31,7 +31,7 @@ const InformationSection = (props) => {
         case "InformationText":
             return <InformationText/>
         case "SummaryTable":
-            return <SummaryTable tableName={props.dataid} />
+            return <SummaryTable info={props.info} />
         case "ChartTable":
             return <GraphTable info={props.info}/>
         case "DonutChart":
