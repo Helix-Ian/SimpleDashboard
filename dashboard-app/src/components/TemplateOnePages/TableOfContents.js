@@ -1,7 +1,7 @@
 import React from 'react';
 //import { Link } from 'react-router-dom';
 import '../../App.css';
-import NextCommentButton from './NextCommentButton';
+import CommentNavButtons from './CommentNavButtons';
 
 const InnerObj = (props) => {
     var content = props.content
@@ -32,7 +32,7 @@ const TableOfContents = (props) => {
     return(
     <div>
         <InnerObj content={props.tocJson} refArray={props.refArray} depth={0}/>
-        <NextCommentButton commentRefs={props.commentRefs} />
+        <CommentNavButtons commentRefs={props.commentRefs} lastActiveCommentId={props.lastActiveCommentId} />
     </div>
     )
 }

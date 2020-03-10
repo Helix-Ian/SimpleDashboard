@@ -13,6 +13,7 @@ class PageController extends Component {
         //Set initial state here for anything inside of the page controller
         this.state = {
           commentRefs: [],
+          lastActiveCommentId: -1,
           informationFromApi: [],
           currentSelection: "",
           ToCSeed: ""
@@ -61,8 +62,25 @@ class PageController extends Component {
         this.updateRefArray(informationFromApi)
       } 
 
-      commentRefCallback(commentRef) {
-        this.state.commentRefs.push(commentRef);
+      /**
+       * Callback for each comment box to update state, used by the nav buttons
+       * If initializing, adds to the list of refs in the PageController state
+       * If not initializing, updates the box given by ID to be the last focused one (used by nav)
+       * @param {boolean} init true if initializing the component, false if sending an update
+       * @param {Object} args an Object containing an id(int) of the box and, if initializing, a ref(Ref) of the textarea
+       */
+      commentCallback(init, args) {
+        if (init) {
+          // add the ref to the list of comments
+          this.setState(state => {
+            const commentRefs = state.commentRefs.slice(0);
+            commentRefs[args.id] = args.ref;
+            return { commentRefs: commentRefs };
+          });
+        } else {
+          // update this comment to be last focused
+          this.setState({lastActiveCommentId: args.id})
+        }
       }
   
       //We will need to pass in props to report pages. Here we render the template page and then all info that 
@@ -74,12 +92,12 @@ class PageController extends Component {
             <div className="ReportContainer">
               {this.state.informationFromApi.map((info, i)=>
                 <div key={i} className={`Page${info.pageNumber} Wrapper`} ref={this.refArray[i]}>
-                  <ReportPage commentRef={this.commentRefCallback.bind(this)} key={info.pageNumber} pageJson={info}/>
+                  <ReportPage commentCallback={this.commentCallback.bind(this)} key={info.pageNumber} pageJson={info}/>
                 </div>
               )}
             </div>
             <div className="TOCContainer">
-              <TableOfContents commentRefs={this.state.commentRefs} refArray={this.refArray} tocJson={this.state.ToCSeed}/>
+              <TableOfContents commentRefs={this.state.commentRefs} lastActiveCommentId={this.state.lastActiveCommentId} refArray={this.refArray} tocJson={this.state.ToCSeed}/>
             </div>
           </div>
         </div>
