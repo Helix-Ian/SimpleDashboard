@@ -10,6 +10,8 @@ import SimpleTable from '../Charts/SimpleTable';
 import BarChart from '../Charts/BarChart';
 import AreaChart from '../Charts/AreaChart';
 import PieChart from '../Charts/PieChart';
+import LineGraph from '../Charts/LineGraph';
+
 
 
 
@@ -26,6 +28,8 @@ const InformationSection = (props) => {
     switch (type) {
         case "PieChart":
             return <PieChart info={props.info}/>
+        case "LineGraph":
+            return <LineGraph info={props.info}/>
         case "InformationText":
             return <InformationText/>
         case "SummaryTable":

@@ -1,31 +1,38 @@
 import React, { useEffect } from 'react';
 
 function LineGraph(props) {
-  var dataObjects = [
-    ['Year', 'Metric 1', 'Metric 2'],
-    ['2000', 1000, 400],
-    ['2005', 1170, 460],
-    ['2010', 660, 1120],
-    ['2015', 1030, 540]
-  ];
+  //Get data objects and the accessType for this table
+  var dataObjects = props.info.Data;
+  var accessType = props.info.Access;
+
+  console.log('dataObjects is...', dataObjects);
 
   const renderTable = () => {
     var data = new window.google.visualization.DataTable();
-    data.addColumn('', '');
-    data.addColumn('', '');
+
+    // Add the given columns from the data, using the first entry as a basis
+    for (var key in dataObjects[0]) {
+      var columnType = key !== 'Time' ? 'number' : 'string';
+      data.addColumn(columnType, key);
+    }
 
     for (var dataObject of dataObjects) {
-      data.addRow(dataObject);
+      var row = [];
+      for (var key in dataObject) {
+        row.push(dataObject[key]);
+      }
+
+      data.addRow(row);
     }
 
     var options = {
-      title: 'Line Graph Component',
+      title: 'Exploit Attack Timeline',
       curveType: 'function',
       legend: { position: 'bottom' }
     };
 
     var graph = new window.google.visualization.LineGraph(
-      document.getElementById(props.graphName)
+      document.getElementById(accessType)
     );
     graph.draw(data, options);
   };
@@ -40,7 +47,7 @@ function LineGraph(props) {
     renderTable();
   });
 
-  return <div id={props.graphName}></div>;
+  return <div id={accessType}></div>;
 }
 
 export default LineGraph;

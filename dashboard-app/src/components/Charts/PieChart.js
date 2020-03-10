@@ -5,26 +5,20 @@ function PieChart(props) {
   var dataObjects = props.info.Data;
   var accessType = props.info.Access;
 
-  console.log('pie chart data', dataObjects);
-  console.log('pie chart data', accessType);
-
   const renderTable = () => {
     var data = new window.google.visualization.DataTable();
 
     // Add the given columns from the data, using the first entry as a basis
     for (var key in dataObjects[0]) {
-      var columnType = key !== "Total" ? 'string' : 'number'
+      var columnType = key !== 'Total' ? 'string' : 'number';
       data.addColumn(columnType, key);
     }
-
-    console.log('pie chart column data', key);
 
     for (var dataObject of dataObjects) {
       var row = [];
       for (var key in dataObject) {
         row.push(dataObject[key]);
       }
-      console.log('pie chart row data', row);
 
       data.addRow(row);
     }
@@ -37,7 +31,7 @@ function PieChart(props) {
     // }
 
     var options = {
-      title: 'Example Pie Chart',
+      title: 'Exploit Attacks by Severity',
       slices: {
         0: { color: '#FFC300' },
         1: { color: '#FF5733' },

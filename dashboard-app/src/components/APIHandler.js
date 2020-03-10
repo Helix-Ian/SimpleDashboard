@@ -24,6 +24,9 @@ export const processApi = (type) => {
         case "ExploitAttackBySeverity":
             apiResponse = getPieChart();
             break;
+        case "":
+            apiResponse = getLineGraph();
+            break;
         case "MonitoredSystems":
             apiResponse = getTable();
             break;
@@ -118,57 +121,120 @@ const getPieChart = function() {
     }
 }
 
-const getChartTable = function() {
-    //Call API
+const getLineGraph = function() {
     return {
-        "Access": "Top20IntrusionsByTypes",
-        "DisplayType": "ChartTable",
-        "Title" : "Top Intrusions by Type",
-        "Data": [
+        "Access": "ExploitAttackTimeline",
+	    "DisplayType": "LineChart", 
+	    "Data": [
             {
-                "IntrusionType": "Anomaly",
-                "Counts": 1460
+                "Time": "2020-01-26T00:00:00.0+06:00Z",
+                "Medium": 2,
+                "High": 23,
+                "Critical": 0
             },
             {
-                "IntrusionType": "SQL Injection",
-                "Counts": 402
+                "Time": "2020-01-26T12:00:00.0+06:00Z",
+                "Medium": 132,
+                "High": 2,
+                "Critical": 1
             },
             {
-                "IntrusionType": "Code Injection",
-                "Counts": 212
+                "Time": "2020-01-26T00:00:00.0+06:00Z",
+                "Medium": 5,
+                "High": 3,
+                "Critical": 0
             },
             {
-                "IntrusionType": "OS Command Injection",
-                "Counts": 143
+                "Time": "2020-01-26T12:00:00.0+06:00Z",
+                "Medium": 181,
+                "High": 11,
+                "Critical": 3
             },
             {
-                "IntrusionType": "Information Disclosure",
-                "Counts": 84
+                "Time": "2020-01-26T00:00:00.0+06:00Z",
+                "Medium": 8,
+                "High": 4,
+                "Critical": 1
             },
             {
-                "IntrusionType": "DoS",
-                "Counts": 84
+                "Time": "2020-01-26T12:00:00.0+06:00Z",
+                "Medium": 23,
+                "High": 2,
+                "Critical": 1
             },
             {
-                "IntrusionType": "Permission/Priviledge/Access Control",
-                "Counts": 66
+                "Time": "2020-01-26T00:00:00.0+06:00Z",
+                "Medium": 11,
+                "High": 5,
+                "Critical": 0
             },
             {
-                "IntrusionType": "Malware",
-                "Counts": 23
+                "Time": "2020-01-26T12:00:00.0+06:00Z",
+                "Medium": 668,
+                "High": 19,
+                "Critical": 0
             },
             {
-                "IntrusionType": "Path Traversal",
-                "Counts": 7
-            },
-            {
-                "IntrusionType": "Buffer Errors",
-                "Counts": 3
-            },
-            {
-                "IntrusionType": "Other",
-                "Counts": 1
+                "Time": "2020-01-26T00:00:00.0+06:00Z",
+                "Medium": 87,
+                "High": 21,
+                "Critical": 1
             }
+        ]
+        }
+    }
+
+    const getChartTable = function() {
+        //Call API
+        return {
+            "Access": "Top20IntrusionsByTypes",
+            "DisplayType": "ChartTable",
+            "Title" : "Top Intrusions by Type",
+            "Data": [
+                {
+                    "IntrusionType": "Anomaly",
+                    "Counts": 1460
+                },
+                {
+                    "IntrusionType": "SQL Injection",
+                    "Counts": 402
+                },
+                {
+                    "IntrusionType": "Code Injection",
+                    "Counts": 212
+                },
+                {
+                    "IntrusionType": "OS Command Injection",
+                    "Counts": 143
+                },
+                {
+                    "IntrusionType": "Information Disclosure",
+                    "Counts": 84
+                },
+                {
+                    "IntrusionType": "DoS",
+                    "Counts": 84
+                },
+                {
+                    "IntrusionType": "Permission/Priviledge/Access Control",
+                    "Counts": 66
+                },
+                {
+                    "IntrusionType": "Malware",
+                    "Counts": 23
+                },
+                {
+                    "IntrusionType": "Path Traversal",
+                    "Counts": 7
+                },
+                {
+                    "IntrusionType": "Buffer Errors",
+                    "Counts": 3
+                },
+                {
+                    "IntrusionType": "Other",
+                    "Counts": 1
+                }
         ]
     }
 }
