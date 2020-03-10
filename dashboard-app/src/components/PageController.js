@@ -12,6 +12,7 @@ class PageController extends Component {
         super(props);
         //Set initial state here for anything inside of the page controller
         this.state = {
+          commentRefs: [],
           informationFromApi: [],
           currentSelection: "",
           ToCSeed: ""
@@ -59,6 +60,10 @@ class PageController extends Component {
         this.refArray = []
         this.updateRefArray(informationFromApi)
       } 
+
+      commentRefCallback(commentRef) {
+        this.state.commentRefs.push(commentRef);
+      }
   
       //We will need to pass in props to report pages. Here we render the template page and then all info that 
       //Serge will pass to us
@@ -69,12 +74,12 @@ class PageController extends Component {
             <div className="ReportContainer">
               {this.state.informationFromApi.map((info, i)=>
                 <div key={i} className={`Page${info.pageNumber} Wrapper`} ref={this.refArray[i]}>
-                  <ReportPage key={info.pageNumber} pageJson={info}/>
+                  <ReportPage commentRef={this.commentRefCallback.bind(this)} key={info.pageNumber} pageJson={info}/>
                 </div>
               )}
             </div>
             <div className="TOCContainer">
-              <TableOfContents refArray={this.refArray} tocJson={this.state.ToCSeed}/>
+              <TableOfContents commentRefs={this.state.commentRefs} refArray={this.refArray} tocJson={this.state.ToCSeed}/>
             </div>
           </div>
         </div>
