@@ -119,3 +119,9 @@
   display: inline-block;
   width: 75%;
 }
+
+.stickyElement {
+  position:fixed;
+  margin-top:20px;
+  background-color: #c0c0c0;
+}
