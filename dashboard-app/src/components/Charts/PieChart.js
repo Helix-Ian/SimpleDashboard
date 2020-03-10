@@ -23,19 +23,12 @@ function PieChart(props) {
       data.addRow(row);
     }
 
-    // data.addColumn('string', 'Alert Category');
-    // data.addColumn('number', 'Percentage');
-
-    // for (var dataObject of dataObjects) {
-    //   data.addRow(dataObject);
-    // }
-
     var options = {
       title: 'Exploit Attacks by Severity',
       slices: {
-        0: { color: '#FFC300' },
-        1: { color: '#FF5733' },
-        2: { color: '#FA0C04' }
+        0: { color: 'yellow' },
+        1: { color: 'orange' },
+        2: { color: 'red' }
       }
     };
 

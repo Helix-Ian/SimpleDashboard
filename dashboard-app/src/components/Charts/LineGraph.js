@@ -5,8 +5,6 @@ function LineGraph(props) {
   var dataObjects = props.info.Data;
   var accessType = props.info.Access;
 
-  console.log('dataObjects is...', dataObjects);
-
   const renderTable = () => {
     var data = new window.google.visualization.DataTable();
 
@@ -28,13 +26,14 @@ function LineGraph(props) {
     var options = {
       title: 'Exploit Attack Timeline',
       curveType: 'function',
-      legend: { position: 'bottom' }
+      height: 500,
+      colors: ['yellow', 'orange', 'red']
     };
 
-    var graph = new window.google.visualization.LineGraph(
+    var chart = new window.google.visualization.LineChart(
       document.getElementById(accessType)
     );
-    graph.draw(data, options);
+    chart.draw(data, options);
   };
 
   useEffect(() => {

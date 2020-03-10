@@ -24,7 +24,7 @@ export const processApi = (type) => {
         case "ExploitAttackBySeverity":
             apiResponse = getPieChart();
             break;
-        case "":
+        case "LineGraphAccess":
             apiResponse = getLineGraph();
             break;
         case "MonitoredSystems":
@@ -76,6 +76,10 @@ const getTableOfContents = function() {
                     {
                         "Title": "Bar Chart",
                         "Access": "BarChartAccess"
+                    },
+                    {
+                        "Title": "Line Graph",
+                        "Access": "LineGraphAccess"
                     }
                     ]
                 }
@@ -124,7 +128,7 @@ const getPieChart = function() {
 const getLineGraph = function() {
     return {
         "Access": "ExploitAttackTimeline",
-	    "DisplayType": "LineChart", 
+	    "DisplayType": "LineGraph", 
 	    "Data": [
             {
                 "Time": "2020-01-26T00:00:00.0+06:00Z",
