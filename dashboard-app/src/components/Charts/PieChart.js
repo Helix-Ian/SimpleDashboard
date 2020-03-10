@@ -1,20 +1,40 @@
 import React, { useEffect } from 'react';
 
 function PieChart(props) {
-  var dataObjects = [
-    ['Medium Alert', 64],
-    ['High Alert', 27],
-    ['Critical Alert', 9]
-  ];
+  //Get data objects and the accessType for this table
+  var dataObjects = props.info.Data;
+  var accessType = props.info.Access;
+
+  console.log('pie chart data', dataObjects);
+  console.log('pie chart data', accessType);
 
   const renderTable = () => {
     var data = new window.google.visualization.DataTable();
-    data.addColumn('string', 'Alert Category');
-    data.addColumn('number', 'Percentage');
+
+    // Add the given columns from the data, using the first entry as a basis
+    for (var key in dataObjects[0]) {
+      var columnType = key !== "Total" ? 'string' : 'number'
+      data.addColumn(columnType, key);
+    }
+
+    console.log('pie chart column data', key);
 
     for (var dataObject of dataObjects) {
-      data.addRow(dataObject);
+      var row = [];
+      for (var key in dataObject) {
+        row.push(dataObject[key]);
+      }
+      console.log('pie chart row data', row);
+
+      data.addRow(row);
     }
+
+    // data.addColumn('string', 'Alert Category');
+    // data.addColumn('number', 'Percentage');
+
+    // for (var dataObject of dataObjects) {
+    //   data.addRow(dataObject);
+    // }
 
     var options = {
       title: 'Example Pie Chart',
@@ -26,7 +46,7 @@ function PieChart(props) {
     };
 
     var chart = new window.google.visualization.PieChart(
-      document.getElementById(props.chartName)
+      document.getElementById(accessType)
     );
     chart.draw(data, options);
   };
@@ -41,7 +61,7 @@ function PieChart(props) {
     renderTable();
   });
 
-  return <div id={props.chartName}></div>;
+  return <div id={accessType}></div>;
 }
 
 export default PieChart;

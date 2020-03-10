@@ -9,11 +9,9 @@ import DonutChart from '../Charts/DonutChart';
 import SimpleTable from '../Charts/SimpleTable';
 import BarChart from '../Charts/BarChart';
 import AreaChart from '../Charts/AreaChart';
+import PieChart from '../Charts/PieChart';
 
-//Create PieChart Here
-const PieChart = function() {
-    return <div className="TestComponent">Pie Chart here</div>
-}
+
 
 //Create Info Text Here
 const InformationText = function() {
@@ -27,7 +25,7 @@ const InformationSection = (props) => {
     var type = props.info.DisplayType;
     switch (type) {
         case "PieChart":
-            return <PieChart/>
+            return <PieChart info={props.info}/>
         case "InformationText":
             return <InformationText/>
         case "SummaryTable":

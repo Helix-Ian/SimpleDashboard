@@ -111,7 +111,7 @@ const getPieChart = function() {
         "Access": "ExploitAttackBySeverity",
         "DisplayType": "PieChart",
         "Data": [
-            {"Category":"Mediun","Total":1644},
+            {"Category":"Medium","Total":1644},
             {"Category":"High","Total":605},
             {"Category":"Critical","Total":245},
         ]
