@@ -3,6 +3,7 @@ import React from 'react';
 import '../../App.css';
 import Header from './Header';
 import Footer from './Footer';
+import CommentBox from './CommentBox';
 import SummaryTable from '../Charts/SummaryTable';
 import GraphTable from '../Charts/GraphTable';
 import DonutChart from '../Charts/DonutChart';
@@ -59,6 +60,7 @@ const ReportPage = (props) => {
     return(
     <div className="ReportPageOuterStyle">
         <Header title={title}/>
+        <CommentBox commentCallback={props.commentCallback} id={pageNumber} />
         {objectList.map(obj =>
             // Added a 'dataid' prop to pass to chart components ('key' is not accessible) so that the divs can have unique IDs
             <InformationSection key={obj.Access + "_" + pageNumber} info={obj}/>
