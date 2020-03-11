@@ -98,6 +98,7 @@
   border-style: dotted;
   padding-bottom: 10px;
   padding-top: 10px;
+  background-color: #c0c0c0;
 }
 
 .TOCColumnLeft {
@@ -111,17 +112,14 @@
 }
 
 .TOCContainer {
-  float: right;
+  position:fixed;
+  margin-top:20px;
+  top: 0; 
+  right:0;  
   width: 25%;
 }
 
 .ReportContainer {
   display: inline-block;
   width: 75%;
-}
-
-.stickyElement {
-  position:fixed;
-  margin-top:20px;
-  background-color: #c0c0c0;
 }
