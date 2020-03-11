@@ -18,11 +18,10 @@ class PageController extends Component {
           currentSelection: "",
           ToCSeed: ""
         };
-        this.pageNumber = 1;
       }
 
       /**
-       * Get a list of pages, each containing an object list based off the resursive object input
+       * Get a list of pages, each containing an object list based off the recursive object input
        * @param {[]} toc - the table of contents input list object
        * 
        * @returns {[{objectList: [], pageNumber: number}]} the list of paginated ToC elements
@@ -32,12 +31,13 @@ class PageController extends Component {
             return;
         }
         var paginatedList = [];
+        var pageNumber = 1;
         for (var i = 0; i < toc.length; i++) {
           var currentObject = toc[i];
           var objectList = this.buildObjectList(currentObject, [], 0, null);
           
-          paginatedList.push({"objectList":objectList, "pageNumber":this.pageNumber});
-          this.pageNumber += 1;
+          paginatedList.push({"objectList":objectList, "pageNumber":pageNumber});
+          pageNumber += 1;
         }
         return paginatedList;
       }
@@ -52,10 +52,12 @@ class PageController extends Component {
        * @returns {[{object: {}, depth: number, parent: string}]} the built object list under the given current object
        */
       buildObjectList(currentObject, objectList, depth, parent) {
-        objectList = objectList.splice(0);
+        objectList = objectList.splice(0); // duplicate the current list to prevent mutation
         objectList.push({"object": processApi(currentObject.Access), "depth": depth, "parent": parent});
+        // if the object contains children, recurse through them
         if (currentObject.Sub) {
           for (var i = 0; i < currentObject.Sub.length; i++) {
+            // add the child's objects to the current list
             objectList.push(...this.buildObjectList(currentObject.Sub[i], objectList, depth + 1, currentObject.Access));
           }
         }
@@ -74,7 +76,6 @@ class PageController extends Component {
 
         //Massage Data from ToC Api to first a list format for each report page
         var informationFromApi = this.paginateToC(toc)
-        console.log(informationFromApi);
         this.setState({
           ToCSeed: toc,
           informationFromApi
