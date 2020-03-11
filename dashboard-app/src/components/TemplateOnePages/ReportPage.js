@@ -62,8 +62,7 @@ const ReportPage = (props) => {
         <Header title={title}/>
         <CommentBox commentCallback={props.commentCallback} id={pageNumber} />
         {objectList.map(obj =>
-            // Added a 'dataid' prop to pass to chart components ('key' is not accessible) so that the divs can have unique IDs
-            <InformationSection key={obj.Access + "_" + pageNumber} info={obj}/>
+            <InformationSection key={obj.object.Access + "_" + pageNumber + "_" + obj.depth} info={obj.object}/>
         )}
         <Footer pageNumber={pageNumber}/>
     </div>

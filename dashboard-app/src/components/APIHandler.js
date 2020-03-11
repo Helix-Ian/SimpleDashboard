@@ -51,35 +51,41 @@ const getTableOfContents = function() {
     return {"ToC": [
                     {
                         "Title": "Monitored Systems",
-                        "Access": "MonitoredSystems"
-                    },
-                    {
-                        "Title": "Top 20 Intrusions by Types",
-                        "Access": "Top20IntrusionsByTypes"
-                    },
-                    {
-                        "Title": "Exploit Attack By Severity",
-                        "Access": "ExploitAttackBySeverity",
+                        "Access": "MonitoredSystems",
+                        "Sub": [
+                            {
+                                "Title": "Top 20 Intrusions by Types",
+                                "Access": "Top20IntrusionsByTypes"
+                            },
+                            {
+                                "Title": "Exploit Attack By Severity",
+                                "Access": "ExploitAttackBySeverity",
+                            }
+                        ]
                     },
                     {
                         "Title": "Area Chart",
-                        "Access": "AreaChart"
-                    },
-                    {
-                        "Title": "Critical Risk Applications Detailed",
-                        "Access": "CriticalRiskApplicationsDetailed"
-                    },
-                    {
-                        "Title": "Donut Chart",
-                        "Access": "DonutChartAccess"
+                        "Access": "AreaChart",
+                        "Sub": [
+                            {
+                                "Title": "Critical Risk Applications Detailed",
+                                "Access": "CriticalRiskApplicationsDetailed",
+                                "Sub": [
+                                    {
+                                        "Title": "Line Graph",
+                                        "Access": "LineGraphAccess"
+                                    },
+                                    {
+                                        "Title": "Donut Chart",
+                                        "Access": "DonutChartAccess"
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     {
                         "Title": "Bar Chart",
                         "Access": "BarChartAccess"
-                    },
-                    {
-                        "Title": "Line Graph",
-                        "Access": "LineGraphAccess"
                     }
                     ]
                 }

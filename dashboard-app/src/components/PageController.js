@@ -22,23 +22,44 @@ class PageController extends Component {
       }
 
       /**
-       * This recrusive function goes into nested layers of the ToC and returns one list of paginated items
-       * @param info - the information of the current "depth" of the table of contents we are in
-       * @param paginatedList - maintained paginated list that will be used to populate report pages
+       * Get a list of pages, each containing an object list based off the resursive object input
+       * @param {[]} toc - the table of contents input list object
        * 
-       * @return the list of paginated ToC elements in the recursive process
+       * @returns {[{objectList: [], pageNumber: number}]} the list of paginated ToC elements
        */
-      paginateToC(info, paginatedList) {
-        if (!info) {
+      paginateToC(toc) {
+        if (!toc) {
             return;
         }
-       for (var i = 0; i < info.length; i++) {
-           var currentObject = info[i];
-           var currentAccess = currentObject.Access;
-           paginatedList.push({"objectList":[processApi(currentAccess)], "pageNumber":this.pageNumber});
-           this.pageNumber += 1;
-       }
-       return paginatedList;
+        var paginatedList = [];
+        for (var i = 0; i < toc.length; i++) {
+          var currentObject = toc[i];
+          var objectList = this.buildObjectList(currentObject, [], 0, null);
+          
+          paginatedList.push({"objectList":objectList, "pageNumber":this.pageNumber});
+          this.pageNumber += 1;
+        }
+        return paginatedList;
+      }
+
+      /**
+       * Recursive method that builds a list of all the objects on a single page, called from paginateToC()
+       * @param {{}} currentObject The object to start at, containing an Access and an optional Sub list
+       * @param {[]} objectList The list that is built recursively
+       * @param {number} depth The current depth of the object, starting at 0 for highest in a page
+       * @param {string} parent The current parent that is being recursed
+       * 
+       * @returns {[{object: {}, depth: number, parent: string}]} the built object list under the given current object
+       */
+      buildObjectList(currentObject, objectList, depth, parent) {
+        objectList = objectList.splice(0);
+        objectList.push({"object": processApi(currentObject.Access), "depth": depth, "parent": parent});
+        if (currentObject.Sub) {
+          for (var i = 0; i < currentObject.Sub.length; i++) {
+            objectList.push(...this.buildObjectList(currentObject.Sub[i], objectList, depth + 1, currentObject.Access));
+          }
+        }
+        return objectList;
       }
 
       //updates refArray with Ref for each index. 
@@ -52,7 +73,8 @@ class PageController extends Component {
         var toc = tocJson.ToC
 
         //Massage Data from ToC Api to first a list format for each report page
-        var informationFromApi = this.paginateToC(toc, [])
+        var informationFromApi = this.paginateToC(toc)
+        console.log(informationFromApi);
         this.setState({
           ToCSeed: toc,
           informationFromApi
