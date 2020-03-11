@@ -13,7 +13,7 @@ const InnerObj = (props) => {
 
     return (
         <div>
-            <div className="stickyElement">            
+            <div>            
                 {content.map((innerContent, i) =>
                   <div key={innerContent.Access + "_" + depth + "_" + i} onClick={() => props.refArray[i].current.scrollIntoView({behavior:'smooth'})}>
                     <div className={"TOCRow + ContentStyle_" + depth}>
