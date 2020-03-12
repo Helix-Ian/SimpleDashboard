@@ -3,6 +3,7 @@ import React from 'react';
 import '../../App.css';
 import CommentNavButtons from './CommentNavButtons';
 import DoneButton from './DoneButton';
+import PageDisplayButtons from './PageDisplayButtons';
 
 const InnerObj = (props) => {
     var content = props.content
@@ -32,6 +33,7 @@ const InnerObj = (props) => {
 const TableOfContents = (props) => {
     return(
     <div>
+        <PageDisplayButtons />
         <InnerObj content={props.tocJson} refArray={props.refArray} depth={0}/>
         <CommentNavButtons commentRefs={props.commentRefs} lastActiveCommentId={props.lastActiveCommentId} />
         <DoneButton commentRefs={props.commentRefs} />

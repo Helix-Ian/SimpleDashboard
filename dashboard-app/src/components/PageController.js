@@ -16,7 +16,9 @@ class PageController extends Component {
           lastActiveCommentId: -1,
           informationFromApi: [],
           currentSelection: "",
-          ToCSeed: ""
+          ToCSeed: "",
+          showAllPages: false,
+          currentPage: 1
         };
       }
 
@@ -105,6 +107,15 @@ class PageController extends Component {
           this.setState({lastActiveCommentId: args.id})
         }
       }
+
+      getCurrentPage() {
+        for (var i = 0; i < this.state.informationFromApi.length; i++) {
+          if (this.state.informationFromApi[i].pageNumber === this.state.currentPage) {
+            return this.state.informationFromApi[i];
+          }
+        }
+        return null;
+      }
   
       //We will need to pass in props to report pages. Here we render the template page and then all info that 
       //Serge will pass to us
@@ -113,11 +124,18 @@ class PageController extends Component {
         <div>
           <div className="ControllerContainer">
             <div className="ReportContainer">
-              {this.state.informationFromApi.map((info, i)=>
-                <div key={i} className={`Page${info.pageNumber} Wrapper`} ref={this.refArray[i]}>
-                  <ReportPage commentCallback={this.commentCallback.bind(this)} key={info.pageNumber} pageJson={info}/>
-                </div>
-              )}
+              {this.state.showAllPages ? (
+                  this.state.informationFromApi.map((info, i)=>
+                    <div key={i} className={`Page${info.pageNumber} Wrapper`} ref={this.refArray[i]}>
+                      <ReportPage commentCallback={this.commentCallback.bind(this)} key={info.pageNumber} pageJson={info}/>
+                    </div>)
+                ) : (
+                  this.getCurrentPage() != null ? (
+                    <div>
+                      <ReportPage commentCallback={this.commentCallback.bind(this)} key={this.state.currentPage} pageJson={this.getCurrentPage()} />
+                    </div>
+                  ) : (<div />)
+                )}
             </div>
             <div className="TOCContainer">
               <TableOfContents commentRefs={this.state.commentRefs} lastActiveCommentId={this.state.lastActiveCommentId} refArray={this.refArray} tocJson={this.state.ToCSeed}/>
