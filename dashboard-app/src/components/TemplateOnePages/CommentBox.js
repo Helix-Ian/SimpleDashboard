@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from 'react';
 const CommentBox = (props) => {
     var textRef = useRef();
     var boxId = props.id;
+    var pageNumber = props.pageNumber;
 
     /**
      * Fired when the text area is focused
@@ -20,7 +21,7 @@ const CommentBox = (props) => {
 
     // initialize only
     useEffect(() => {
-        props.commentCallback(true, {ref: textRef, id: boxId});
+        props.commentCallback(true, {ref: textRef, id: boxId, page: pageNumber});
     }, []);
 
     return (

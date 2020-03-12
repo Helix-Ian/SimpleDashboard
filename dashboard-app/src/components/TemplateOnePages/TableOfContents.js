@@ -37,8 +37,8 @@ const TableOfContents = (props) => {
     <div>
         <PageDisplayButtons viewModeCallback={props.viewModeCallback} />
         <InnerObj content={props.tocJson} refArray={props.refArray} depth={0}/>
-        <CommentNavButtons commentRefs={props.commentRefs} lastActiveCommentId={props.lastActiveCommentId} />
-        <DoneButton commentRefs={props.commentRefs} />
+        <CommentNavButtons commentCallback={props.commentCallback} pageSwitchCallback={props.pageSwitchCallback} comments={props.comments} lastActiveCommentId={props.lastActiveCommentId} />
+        <DoneButton comments={props.comments} />
     </div>
     )
 }
