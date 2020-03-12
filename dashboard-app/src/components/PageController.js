@@ -104,7 +104,8 @@ class PageController extends Component {
           });
         } else {
           // update this comment to be last focused
-          this.setState({lastActiveCommentId: args.id})
+          this.setState({lastActiveCommentId: args.id});
+          this.setState({currentPage: this.state.comments[args.id].page});
         }
       }
 
@@ -113,7 +114,9 @@ class PageController extends Component {
        * @param {number} pageNumber The page to switch to
        */
       pageSwitchCallback(pageNumber) {
-        this.setState({currentPage: pageNumber})
+        if (!this.state.showAllPages) {
+          this.setState({currentPage: pageNumber});
+        }
       }
 
       /**
