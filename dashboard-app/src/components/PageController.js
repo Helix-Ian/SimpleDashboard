@@ -126,19 +126,6 @@ class PageController extends Component {
       viewModeCallback(showAllPages) {
         this.setState({showAllPages});
       }
-
-      /**
-       * Gets the current page data if in single-page mode
-       * @returns {{}} the object data of the current page, or null if it could not be found
-       */
-      getCurrentPageData() {
-        for (var i = 0; i < this.state.informationFromApi.length; i++) {
-          if (this.state.informationFromApi[i].pageNumber === this.state.currentPage) {
-            return this.state.informationFromApi[i];
-          }
-        }
-        return null;
-      }
   
       //We will need to pass in props to report pages. Here we render the template page and then all info that 
       //Serge will pass to us
