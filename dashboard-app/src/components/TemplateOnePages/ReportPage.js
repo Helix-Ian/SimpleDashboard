@@ -60,7 +60,7 @@ const ReportPage = (props) => {
     return(
     <div className="ReportPageOuterStyle">
         <Header title={title}/>
-        <CommentBox commentCallback={props.commentCallback} id={pageNumber} />
+        <CommentBox commentCallback={props.commentCallback} id={pageNumber} pageNumber={pageNumber} />
         {objectList.map(obj =>
             <InformationSection key={obj.object.Access + "_" + pageNumber + "_" + obj.depth} info={obj.object}/>
         )}

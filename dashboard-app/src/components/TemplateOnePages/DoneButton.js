@@ -7,9 +7,9 @@ const DoneButton = (props) => {
      * @returns true if there are no empty comment boxes, false otherwise
      */
     const isSubmittable = () => {
-        for (var i = 0; i < props.commentRefs.length; i++) {
+        for (var i = 0; i < props.comments.length; i++) {
             // if comment box exists and is empty
-            if (props.commentRefs[i] && props.commentRefs[i].current.value.length === 0) {
+            if (props.comments[i] && props.comments[i].ref.current.value.length === 0) {
                 return false;
             }
         }
