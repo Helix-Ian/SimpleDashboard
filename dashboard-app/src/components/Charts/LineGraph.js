@@ -17,7 +17,13 @@ function LineGraph(props) {
     for (var dataObject of dataObjects) {
       var row = [];
       for (var key in dataObject) {
-        row.push(dataObject[key]);
+        let dataInstance = dataObject[key];
+        if (key === 'Time') {
+          // timestamp format is "2020-01-26T00:00:00.0+06:00Z"
+          dataInstance = dataInstance.substring(0, 10);
+        }
+
+        row.push(dataInstance);
       }
 
       data.addRow(row);
@@ -27,7 +33,14 @@ function LineGraph(props) {
       title: 'Exploit Attack Timeline',
       curveType: 'function',
       height: 500,
-      colors: ['yellow', 'orange', 'red']
+      hAxis: {
+        slantedText: true,
+        slantedTextAngle: 45,
+        textStyle: {
+          fontSize: 12
+        }
+      },
+      colors: ['#FFE066', '#FFA500', '#CD5C5C']
     };
 
     var chart = new window.google.visualization.LineChart(
