@@ -8,6 +8,8 @@ import PageDisplayButtons from './PageDisplayButtons';
 const InnerObj = (props) => {
     var content = props.content
     var depth = props.depth
+    // left undefined for first layer, which will generate based off i in the map and passed to each child
+    var pageNum = props.pageNum;
 
     if (!content) {
         return null
@@ -20,9 +22,9 @@ const InnerObj = (props) => {
                   <div key={innerContent.Access + "_" + depth + "_" + i} onClick={() => props.refArray[i].current.scrollIntoView({behavior:'smooth'})}>
                     <div className={"TOCRow + ContentStyle_" + depth}>
                         <div className="TOCColumnLeft">{innerContent.Title}</div>
-                        <div className="TOCColumnRight">{depth}</div>
+                        <div className="TOCColumnRight">{pageNum ? pageNum : (i + 1)}</div>
                     </div>
-                    <InnerObj content={innerContent.Sub} depth={depth+1} refArray={props.refArray}/>
+                    <InnerObj content={innerContent.Sub} depth={depth+1} refArray={props.refArray} pageNum={pageNum ? pageNum : (i + 1)}/>
                 </div>
                 )}
             </div>
@@ -33,7 +35,7 @@ const InnerObj = (props) => {
 const TableOfContents = (props) => {
     return(
     <div>
-        <PageDisplayButtons />
+        <PageDisplayButtons viewModeCallback={props.viewModeCallback} />
         <InnerObj content={props.tocJson} refArray={props.refArray} depth={0}/>
         <CommentNavButtons commentRefs={props.commentRefs} lastActiveCommentId={props.lastActiveCommentId} />
         <DoneButton commentRefs={props.commentRefs} />

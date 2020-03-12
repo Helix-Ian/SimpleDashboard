@@ -1,19 +1,20 @@
 import React from 'react';
 
 const PageDisplayButtons = (props) => {
+    const viewModeCallback = props.viewModeCallback;
 
     /**
      * Fired whenever the Show All button is clicked
      */
     const onShowAllButtonClick = () => {
-        console.log('click1');
+        viewModeCallback(true);
     }
 
     /**
      * Fired whenever the Show One button is clicked
      */
     const onShowOneButtonClick = () => {
-        console.log('click2');
+        viewModeCallback(false);
     }
 
     return (

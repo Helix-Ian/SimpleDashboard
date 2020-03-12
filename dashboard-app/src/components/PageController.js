@@ -108,7 +108,19 @@ class PageController extends Component {
         }
       }
 
-      getCurrentPage() {
+      /**
+       * Callback to switch the view mode to all page mode or one page mode, used by PageDisplayButtons
+       * @param {boolean} showAllPages true for all page mode, false for one page mode
+       */
+      viewModeCallback(showAllPages) {
+        this.setState({showAllPages});
+      }
+
+      /**
+       * Gets the current page data if in single-page mode
+       * @returns {{}} the object data of the current page, or null if it could not be found
+       */
+      getCurrentPageData() {
         for (var i = 0; i < this.state.informationFromApi.length; i++) {
           if (this.state.informationFromApi[i].pageNumber === this.state.currentPage) {
             return this.state.informationFromApi[i];
@@ -126,19 +138,19 @@ class PageController extends Component {
             <div className="ReportContainer">
               {this.state.showAllPages ? (
                   this.state.informationFromApi.map((info, i)=>
-                    <div key={i} className={`Page${info.pageNumber} Wrapper`} ref={this.refArray[i]}>
+                    <div key={info.pageNumber} className={`Page${info.pageNumber} Wrapper`} ref={this.refArray[i]}>
                       <ReportPage commentCallback={this.commentCallback.bind(this)} key={info.pageNumber} pageJson={info}/>
                     </div>)
                 ) : (
-                  this.getCurrentPage() != null ? (
-                    <div>
-                      <ReportPage commentCallback={this.commentCallback.bind(this)} key={this.state.currentPage} pageJson={this.getCurrentPage()} />
+                  this.getCurrentPageData() != null ? (
+                    <div key={this.state.currentPage} className={`Page${this.state.currentPage} Wrapper`}>
+                      <ReportPage commentCallback={this.commentCallback.bind(this)} key={this.state.currentPage} pageJson={this.getCurrentPageData()} />
                     </div>
                   ) : (<div />)
                 )}
             </div>
             <div className="TOCContainer">
-              <TableOfContents commentRefs={this.state.commentRefs} lastActiveCommentId={this.state.lastActiveCommentId} refArray={this.refArray} tocJson={this.state.ToCSeed}/>
+              <TableOfContents commentRefs={this.state.commentRefs} lastActiveCommentId={this.state.lastActiveCommentId} refArray={this.refArray} tocJson={this.state.ToCSeed} viewModeCallback={this.viewModeCallback.bind(this)}/>
             </div>
           </div>
         </div>
