@@ -14,22 +14,48 @@ function PieChart(props) {
       data.addColumn(columnType, key);
     }
 
+    var legendArray = [];
+    var legendObject = new Object();
+
+    // Aggregate total count of each category
+    const totalCount = dataObjects.reduce((acc, val) => acc + val.Total, 0);
+
+    // Found a function to format number with commas in thousands place
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    dataObjects = dataObjects.map(dataObj => {
+      const percentageVal = ((dataObj.Total / totalCount) * 100).toFixed(2);
+      const newCategory = `${percentageVal}% ${
+        dataObj.Category
+      } (${numberWithCommas(dataObj.Total)})`;
+      // Return new dataObj
+      return {
+        ...dataObj,
+        Category: newCategory
+      };
+    });
+
     for (var dataObject of dataObjects) {
       var row = [];
       for (var key in dataObject) {
         row.push(dataObject[key]);
       }
-
       data.addRow(row);
     }
 
     var options = {
       title: 'Exploit Attacks by Severity',
+      width: 750,
       slices: {
-        0: { color: 'yellow' },
-        1: { color: 'orange' },
-        2: { color: 'red' }
-      }
+        0: { color: '#FFE066' },
+        1: { color: '#FFA500' },
+        2: { color: '#CD5C5C' }
+      },
+      legend: { position: 'right', alignment: 'center' },
+      pieSliceText: 'none',
+      tooltip: { isHtml: true, showColorCode: true }
     };
 
     var chart = new window.google.visualization.PieChart(
