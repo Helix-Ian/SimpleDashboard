@@ -37,7 +37,8 @@ class PageController extends Component {
       paginatedList.push({
         objectList: [processApi(currentAccess)],
         pageNumber: this.pageNumber,
-        title: title
+        title: title,
+        totalPageNumber: info.length
       });
       this.pageNumber += 1;
     }
