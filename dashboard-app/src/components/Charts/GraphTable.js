@@ -8,10 +8,14 @@ will be the only column that is a numeric value and all other values will be str
     "Access": "AccessType",
     "DisplayType": "ChartTable",
     "Title" : "Chart Title",
+    "Labels": {
+        col1: "Column 1",
+        col2: "Column 2"
+    }
     "Data": [
         {
-            "Column1": "rowValue",
-            "Column2": 1000
+            col1: "rowValue",
+            col2: 1000
         }
     ]
 }
@@ -20,27 +24,42 @@ will be the only column that is a numeric value and all other values will be str
 function GraphTable(props) {
 
     var dataObjects = props.info.Data
+    var labels = props.info.Labels
     var accessType = props.info.Access
     
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
+
+        var dataColumnName = undefined;
+        var dataColumnIndex = undefined;
         //Create column headers and define column types
-        for (var key in dataObjects[0]) {
-            var columnType = key !== 'Counts' ? 'string' : 'number'
-            data.addColumn(columnType, key);
+        for (var key in labels) {
+            var colName = labels[key];
+            if (colName === "Count" || colName === "Counts") {
+                dataColumnName = colName;
+                dataColumnIndex = data.addColumn('number', colName);
+            } else {
+                data.addColumn('string', colName);
+            }
         }
         
         //Organize row data for each column from the json
         for (var dataObject of dataObjects) {
             var rowObj = [];
             for (var key in dataObject) {
-                rowObj.push(dataObject[key]);
+                if (labels[key] === dataColumnName) {
+                    rowObj.push(parseInt(dataObject[key]));
+                } else {
+                    rowObj.push(dataObject[key]);
+                }
             }
             data.addRow(rowObj);
         }
 
-        var barFormat = new window.google.visualization.BarFormat({base: 0, min: 0});
-        barFormat.format(data, 1);
+        if (dataColumnIndex) {
+            var barFormat = new window.google.visualization.BarFormat({base: 0, min: 0});
+            barFormat.format(data, dataColumnIndex);
+        }
 
         var options = {
             sort: 'disable',

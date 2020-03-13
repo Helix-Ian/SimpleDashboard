@@ -2,21 +2,22 @@ import React, { useEffect } from 'react';
 
 
 /*
-    Expected data: List of dictionaries, with each key being the column name and each value being the row value
-    [ {"Column1": "Value1", "Column2": "Value2"}, {"Column1", "Value3", "Column2": "Value4"} ]
+    Expected data: List of dictionaries, with static column names each value being the row value
+    [ {col1: "Value1", col2: "Value2"}, {col1, "Value3", col2: "Value4"} ]
 */
 const SimpleTable = (props) => {
 
     //Get datat objects and the accessType for this table
     var dataObjects = props.info.Data
+    var labels = props.info.Labels;
     var accessType = props.info.Access
 
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
 
         // Add the given columns from the data, using the first entry as a basis
-        for (var column in dataObjects[0]) {
-            data.addColumn('string', column);
+        for (var col in labels) {
+            data.addColumn('string', labels[col]);
         }
         
         // Add each row of data, using given order

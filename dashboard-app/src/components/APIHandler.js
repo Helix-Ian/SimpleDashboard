@@ -40,7 +40,7 @@ export const processApi = (type) => {
             apiResponse = getBarChart();
             break;
         default:
-            return "There has been an invalid type passed in"
+            return {"Access": type, "DisplayType": type}
     }
     return apiResponse;
 };
