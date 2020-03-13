@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 //import { Link } from 'react-router-dom';
 import '../App.css';
 import ReportPage from './TemplateOnePages/ReportPage';
@@ -85,7 +86,48 @@ class PageController extends Component {
 
         this.refArray = []
         this.updateRefArray(informationFromApi)
-      } 
+
+
+        var url = "https://dev-reporting-api.armorpoint.com/api/Queries/ToC"
+
+        //Axios example
+        Axios.get(url)
+          .then((response) => {
+            console.log(response.data);
+            console.log(response.status);
+            console.log(response.statusText);
+            console.log(response.headers);
+            console.log(response.config);
+          });
+
+        //XMLHttpRequest examples
+        //TOC  
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            console.log("liveData");
+            if (xmlHttp.responseText) {
+                console.log(JSON.parse(xmlHttp.responseText));
+            }
+        }
+        xmlHttp.open("GET", url, true); // true for asynchronous 
+        xmlHttp.send(null);
+
+        //ExecutiveSummary
+        var innerApi = "https://dev-reporting-api.armorpoint.com/api/Queries/ExecutiveSummary/Data"
+        var xmlHttp1 = new XMLHttpRequest()
+        xmlHttp1.onreadystatechange = function() { 
+          if (xmlHttp1.readyState == 4 && xmlHttp1.status == 200)
+          console.log("innerApi");
+            if (xmlHttp1.responseText) {
+              console.log(JSON.parse(xmlHttp1.responseText));
+            }
+      }
+      xmlHttp1.open("GET", innerApi, true); // true for asynchronous 
+      xmlHttp1.send(null);
+
+
+    } 
 
       /**
        * Callback for each comment box to update state, used by the nav buttons and comment boxes
