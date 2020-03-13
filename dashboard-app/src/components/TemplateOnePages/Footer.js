@@ -7,7 +7,8 @@ const Footer = props => {
   var totalPageNumber = props.pageJson.totalPageNumber;
 
   return (
-    <div>
+    <div className="TestFooter">
+    <hr className="hrFooter"></hr>
       page {pageNumber} of {totalPageNumber}
     </div>
   );

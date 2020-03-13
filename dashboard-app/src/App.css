@@ -58,6 +58,14 @@
   font-weight: 500;
 }
 
+.TestFooter {
+  text-align: right;
+}
+
+.hrTestFooter {
+  border: 1.5px solid lightgray;
+}
+
 .TestComponent {
   background-color: #6c61e0;
   padding-top: 10px;
@@ -86,7 +94,7 @@
 }
 
 .TOCRow:after {
-  content: "";
+  content: '';
   clear: both;
 }
 
@@ -113,10 +121,10 @@
 }
 
 .TOCContainer {
-  position:fixed;
-  margin-top:20px;
-  top: 0; 
-  right:0;  
+  position: fixed;
+  margin-top: 20px;
+  top: 0;
+  right: 0;
   width: 25%;
 }
 
