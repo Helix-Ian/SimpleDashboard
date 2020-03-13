@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 
 
 /*
-    Expected data: List of dictionaries, with each key being the column name and each value being the row value
-    [ {"Column1": "Value1", "Column2": "Value2"}, {"Column1", "Value3", "Column2": "Value4"} ]
+    Expected data: List of dictionaries, with static column names each value being the row value
+    [ {col1: "Value1", col2: "Value2"}, {col1, "Value3", col2: "Value4"} ]
 */
 const SimpleTable = (props) => {
 

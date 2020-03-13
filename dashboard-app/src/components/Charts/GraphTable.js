@@ -8,10 +8,14 @@ will be the only column that is a numeric value and all other values will be str
     "Access": "AccessType",
     "DisplayType": "ChartTable",
     "Title" : "Chart Title",
+    "Labels": {
+        col1: "Column 1",
+        col2: "Column 2"
+    }
     "Data": [
         {
-            "Column1": "rowValue",
-            "Column2": 1000
+            col1: "rowValue",
+            col2: 1000
         }
     ]
 }
@@ -26,12 +30,13 @@ function GraphTable(props) {
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
 
-        var dataColumnName = "Counts";
+        var dataColumnName = undefined;
         var dataColumnIndex = undefined;
         //Create column headers and define column types
         for (var key in labels) {
             var colName = labels[key];
-            if (colName === dataColumnName) {
+            if (colName === "Count" || colName === "Counts") {
+                dataColumnName = colName;
                 dataColumnIndex = data.addColumn('number', colName);
             } else {
                 data.addColumn('string', colName);
