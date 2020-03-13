@@ -57,6 +57,10 @@
   background-color: #73727e;
 }
 
+.TestFooter {
+  text-align: right;
+}
+
 .TestComponent {
   background-color: #6c61e0;
   padding-top: 10px;
