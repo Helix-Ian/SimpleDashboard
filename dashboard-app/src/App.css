@@ -119,6 +119,11 @@
   width: 25%;
 }
 
+.TOCRowsContainer {
+  max-height: 80vh;
+  overflow: auto;
+}
+
 .ReportContainer {
   display: inline-block;
   width: 75%;

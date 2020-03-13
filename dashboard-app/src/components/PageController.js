@@ -19,8 +19,10 @@ class PageController extends Component {
           currentSelection: "",
           ToCSeed: "",
           showAllPages: false,
-          currentPage: 1
+          currentPage: 1,
+          accessData: {}
         };
+        this.useLiveApi = true;
       }
 
       /**
@@ -34,13 +36,21 @@ class PageController extends Component {
             return;
         }
         var paginatedList = [];
+        var objectList = [];
         var pageNumber = 1;
         for (var i = 0; i < toc.length; i++) {
           var currentObject = toc[i];
-          var objectList = this.buildObjectList(currentObject, [], 0, null);
-          
+          objectList = this.buildObjectList(currentObject, [], 0, null, false);
           paginatedList.push({"objectList":objectList, "pageNumber":pageNumber});
           pageNumber += 1;
+
+          if (currentObject.Sub) {
+            for (var j = 0; j < currentObject.Sub.length; j++) {
+              objectList = this.buildObjectList(currentObject.Sub[j], [], 0, null, true);
+              paginatedList.push({"objectList":objectList, "pageNumber":pageNumber});
+              pageNumber += 1;
+            }
+          }
         }
         return paginatedList;
       }
@@ -51,20 +61,37 @@ class PageController extends Component {
        * @param {[]} objectList The list that is built recursively
        * @param {number} depth The current depth of the object, starting at 0 for highest in a page
        * @param {string} parent The current parent that is being recursed
+       * @param {boolean} recurse Whether to add the children of the object to the list
        * 
        * @returns {[{object: {}, depth: number, parent: string}]} the built object list under the given current object
        */
-      buildObjectList(currentObject, objectList, depth, parent) {
+      buildObjectList(currentObject, objectList, depth, parent, recurse) {
         objectList = objectList.splice(0); // duplicate the current list to prevent mutation
-        objectList.push({"object": processApi(currentObject.Access), "depth": depth, "parent": parent});
+        objectList.push({"object": (this.useLiveApi ? this.state.accessData[currentObject.Access] : processApi(currentObject.Access)), "access": currentObject.Access, "depth": depth, "parent": parent});
         // if the object contains children, recurse through them
-        if (currentObject.Sub) {
+        if (recurse && currentObject.Sub) {
           for (var i = 0; i < currentObject.Sub.length; i++) {
             // add the child's objects to the current list
-            objectList.push(...this.buildObjectList(currentObject.Sub[i], objectList, depth + 1, currentObject.Access));
+            objectList.push(...this.buildObjectList(currentObject.Sub[i], objectList, depth + 1, currentObject.Access, recurse));
           }
         }
         return objectList;
+      }
+
+      /**
+       * Recursively build and return a list of all the Access fields in the ToC data
+       * @param {[]} data the table of contents API object
+       */
+      buildAccessList(data) {
+        var accessList = [];
+        for (var i = 0; i < data.length; i++) {
+          var currentObj = data[i];
+          accessList.push(currentObj.Access);
+          if (currentObj.Sub) {
+            accessList.push(...this.buildAccessList(currentObj.Sub));
+          }
+        }
+        return accessList;
       }
 
       //updates refArray with Ref for each index. 
@@ -73,60 +100,57 @@ class PageController extends Component {
       }
 
       componentDidMount = () => {
-        //kick off apis here
-        var tocJson = processApi("ToC")
-        var toc = tocJson.ToC
+        if (this.useLiveApi) {
+          const toc_url = "https://dev-reporting-api.armorpoint.com/api/Queries/ToC";
+          const access_url = "https://dev-reporting-api.armorpoint.com/api/Queries/ACCESS/Data";
+          
+          this.refArray = []
+          Axios.get(toc_url)
+            .then((response) => {
+              var tocResponse = response.data.ToC;
+              var accessList = this.buildAccessList(tocResponse);
 
-        //Massage Data from ToC Api to first a list format for each report page
-        var informationFromApi = this.paginateToC(toc)
-        this.setState({
-          ToCSeed: toc,
-          informationFromApi
-        })
+              var accessCalls = accessList.map((access) => Axios.get(access_url.replace('ACCESS', access)));
 
-        this.refArray = []
-        this.updateRefArray(informationFromApi)
+              Axios.all(accessCalls).then(Axios.spread((...responses) => {
+                var accessData = {};
+                for (var i = 0; i < responses.length; i++) {
+                  var responseData = responses[i];
+                  var dataObj = responseData.data;
 
+                  if (dataObj) {
+                    // ---- TEMPORARY until the API is fixed to return the correct access ----
+                    var access = responseData.config.url.substring(53, responseData.config.url.length - 5);
+                    dataObj.Access = access;
+                    // ----
 
-        var url = "https://dev-reporting-api.armorpoint.com/api/Queries/ToC"
+                    accessData[dataObj.Access] = dataObj;
+                  }
+                }
+                this.setState({accessData});
 
-        //Axios example
-        Axios.get(url)
-          .then((response) => {
-            console.log(response.data);
-            console.log(response.status);
-            console.log(response.statusText);
-            console.log(response.headers);
-            console.log(response.config);
-          });
+                var informationFromApi = this.paginateToC(tocResponse);
+                this.setState({informationFromApi});
+                this.updateRefArray(informationFromApi);
+              }));
+              
+              this.setState({ToCSeed: tocResponse});
+            });
+        } else {
+          //kick off apis here
+          var tocJson = processApi("ToC")
+          var toc = tocJson.ToC
 
-        //XMLHttpRequest examples
-        //TOC  
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            console.log("liveData");
-            if (xmlHttp.responseText) {
-                console.log(JSON.parse(xmlHttp.responseText));
-            }
+          //Massage Data from ToC Api to first a list format for each report page
+          var informationFromApi = this.paginateToC(toc)
+          this.setState({
+            ToCSeed: toc,
+            informationFromApi
+          })
+
+          this.refArray = []
+          this.updateRefArray(informationFromApi)
         }
-        xmlHttp.open("GET", url, true); // true for asynchronous 
-        xmlHttp.send(null);
-
-        //ExecutiveSummary
-        var innerApi = "https://dev-reporting-api.armorpoint.com/api/Queries/ExecutiveSummary/Data"
-        var xmlHttp1 = new XMLHttpRequest()
-        xmlHttp1.onreadystatechange = function() { 
-          if (xmlHttp1.readyState == 4 && xmlHttp1.status == 200)
-          console.log("innerApi");
-            if (xmlHttp1.responseText) {
-              console.log(JSON.parse(xmlHttp1.responseText));
-            }
-      }
-      xmlHttp1.open("GET", innerApi, true); // true for asynchronous 
-      xmlHttp1.send(null);
-
-
     } 
 
       /**
