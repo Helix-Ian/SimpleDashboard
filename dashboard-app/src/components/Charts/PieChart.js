@@ -27,9 +27,7 @@ function PieChart(props) {
 
     dataObjects = dataObjects.map(dataObj => {
       const percentageVal = ((dataObj.Total / totalCount) * 100).toFixed(2);
-      const newCategory = `${percentageVal}% ${
-        dataObj.Category
-      } (${numberWithCommas(dataObj.Total)})`;
+      const newCategory = `${percentageVal}% ${dataObj.Category} (${numberWithCommas(dataObj.Total)})`;
       // Return new dataObj
       return {
         ...dataObj,
