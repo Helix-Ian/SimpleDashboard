@@ -38,12 +38,14 @@ class PageController extends Component {
         var paginatedList = [];
         var objectList = [];
         var pageNumber = 1;
+        // iterate over the first layer
         for (var i = 0; i < toc.length; i++) {
           var currentObject = toc[i];
           objectList = this.buildObjectList(currentObject, [], 0, null, false);
           paginatedList.push({"objectList":objectList, "pageNumber":pageNumber});
           pageNumber += 1;
 
+          // if a second layer exists, iterate over that + recurse through its children
           if (currentObject.Sub) {
             for (var j = 0; j < currentObject.Sub.length; j++) {
               objectList = this.buildObjectList(currentObject.Sub[j], [], 0, null, true);
@@ -105,15 +107,19 @@ class PageController extends Component {
           const access_url = "https://dev-reporting-api.armorpoint.com/api/Queries/ACCESS/Data";
           
           this.refArray = []
+          // Get the ToC data
           Axios.get(toc_url)
             .then((response) => {
               var tocResponse = response.data.ToC;
               var accessList = this.buildAccessList(tocResponse);
 
+              // build a list of calls to get the access data
               var accessCalls = accessList.map((access) => Axios.get(access_url.replace('ACCESS', access)));
 
+              // get the access data
               Axios.all(accessCalls).then(Axios.spread((...responses) => {
                 var accessData = {};
+                // add each response to the accessData object
                 for (var i = 0; i < responses.length; i++) {
                   var responseData = responses[i];
                   var dataObj = responseData.data;
@@ -129,6 +135,7 @@ class PageController extends Component {
                 }
                 this.setState({accessData});
 
+                // build the informationFromApi object 
                 var informationFromApi = this.paginateToC(tocResponse);
                 this.setState({informationFromApi});
                 this.updateRefArray(informationFromApi);

@@ -30,11 +30,13 @@ const TableOfContents = (props) => {
     if (props.tocJson) {
         var tocRows = [];
         var pageNumber = 1;
+        // go through the top-level objects
         for (var i = 0; i < props.tocJson.length; i++) {
             var currentObj = props.tocJson[i];
             tocRows.push(<ToCRow key={pageNumber} content={currentObj} refArray={props.refArray} depth={0} pageSwitchCallback={props.pageSwitchCallback} pageNum={pageNumber}/>);
             pageNumber += 1;
 
+            // if the object has children, iterate through that and assign the sub prop to iterate through its children
             if (currentObj.Sub) {
                 for (var j = 0; j < currentObj.Sub.length; j++) {
                     var childObj = currentObj.Sub[j];
