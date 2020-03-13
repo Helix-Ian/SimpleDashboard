@@ -9,14 +9,15 @@ const SimpleTable = (props) => {
 
     //Get datat objects and the accessType for this table
     var dataObjects = props.info.Data
+    var labels = props.info.Labels;
     var accessType = props.info.Access
 
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
 
         // Add the given columns from the data, using the first entry as a basis
-        for (var column in dataObjects[0]) {
-            data.addColumn('string', column);
+        for (var col in labels) {
+            data.addColumn('string', labels[col]);
         }
         
         // Add each row of data, using given order
