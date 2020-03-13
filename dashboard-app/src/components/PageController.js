@@ -37,8 +37,9 @@ class PageController extends Component {
         for (var i = 0; i < toc.length; i++) {
           var currentObject = toc[i];
           var objectList = this.buildObjectList(currentObject, [], 0, null);
+          var title = currentObject.Title;
           
-          paginatedList.push({"objectList":objectList, "pageNumber":pageNumber});
+          paginatedList.push({"objectList":objectList, "pageNumber":pageNumber, title: title});
           pageNumber += 1;
         }
         return paginatedList;
