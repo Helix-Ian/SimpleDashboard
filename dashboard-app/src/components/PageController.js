@@ -41,9 +41,11 @@ class PageController extends Component {
         // iterate over the first layer
         for (var i = 0; i < toc.length; i++) {
           var currentObject = toc[i];
+
           objectList = this.buildObjectList(currentObject, [], 0, null, false);
           var title = currentObject.Title;
-          paginatedList.push({"objectList":objectList, "pageNumber":pageNumber, title: title});
+          var totalPageNumber = toc.length;
+          paginatedList.push({"objectList":objectList, "pageNumber":pageNumber, title: title,  "totalPageNumber":totalPageNumber});
           pageNumber += 1;
 
           // if a second layer exists, iterate over that + recurse through its children

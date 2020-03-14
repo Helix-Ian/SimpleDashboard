@@ -2,11 +2,12 @@ import React from 'react';
 //import { Link } from 'react-router-dom';
 import '../../App.css';
 
-const Footer = (props) => {
+const Footer = props => {
     var pageNumber = props.pageNumber
+    var totalPageNumber = props.totalPageNumber
 
     return(
-    <div>Footer: {pageNumber}</div>
+    <div className="TestFooter"><hr></hr>page {pageNumber} of {totalPageNumber}</div>
     )
 }
 

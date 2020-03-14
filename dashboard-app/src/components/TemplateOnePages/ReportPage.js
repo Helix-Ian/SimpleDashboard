@@ -60,7 +60,9 @@ const ReportPage = (props) => {
     var pageJson = props.pageJson
     var title = pageJson.title
     var pageNumber = pageJson.pageNumber
-    var objectList = pageJson.objectList 
+    var totalPageNumber = pageJson.totalPageNumber
+    var objectList = pageJson.objectList
+
     
     return(
     <div className="ReportPageOuterStyle">
@@ -69,7 +71,7 @@ const ReportPage = (props) => {
         {objectList.map(obj =>
             <InformationSection key={obj.access + "_" + pageNumber + "_" + obj.depth} obj={obj}/>
         )}
-        <Footer pageNumber={pageNumber}/>
+        <Footer pageNumber={pageNumber} totalPageNumber={totalPageNumber}/>
     </div>
     )
 
