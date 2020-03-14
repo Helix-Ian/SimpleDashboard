@@ -1,23 +1,25 @@
 import React, { useEffect } from 'react';
 
 /*
-    Exact data format is unknown, but expecting nested arrays
+    Expecting Data to be a list of objects, each containing a string for the first column and a number for the second
 */
 function BarChart(props) {
 
     var accessType = props.info.Access;
 
-    var dataObjects = [['1/27/2020', 10], ['1/28/2020', 14], ['1/29/2020', 29], ['1/30/2020', 4], ['1/31/2020', 17], ['2/1/2020', 3], ['2/2/2020', 15]];
+    var dataObjects = props.info.Data;
+    var labels = props.info.Labels;
 
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
-        // Static columns for now, but the names don't necessarily matter as there isn't a legend
-        data.addColumn('string', 'Date');
-        data.addColumn('number', 'Amount');
+
+        // assuming col1 is always a String and col2 is always a Number
+        data.addColumn('string', labels.col1);
+        data.addColumn('number', labels.col2);
 
         // Add each row based on the data (assuming array of two values)
         for (var dataObject of dataObjects) {
-            data.addRow(dataObject);
+            data.addRow([dataObject.col1, parseInt(dataObject.col2)]);
         }
 
         var options = {

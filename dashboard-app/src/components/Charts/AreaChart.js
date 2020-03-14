@@ -5,34 +5,28 @@ import React, { useEffect } from 'react';
 */
 function AreaChart(props) {
 
-    // single value testing
-    // var dataObjects = [['0:00', 2.0], ['2:00', 3.9], ['4:00', 1.8], ['6:00', 3.6], ['8:00', 3.4], ['10:00', 3.6], ['12:00', 2.5],
-    //                    ['14:00', 4.2], ['16:00', 2.8], ['18:00', 2.0], ['20:00', 1.8], ['22:00', 4.1], ['0:00', 2.0]];
-
-    // dual value testing
-    var accessType = props.info.Access
-    var dataObjects = [['1/26/2020', 0.0, 1.2], ['1/26/2020', 0.0, 2.0], ['1/27/2020', 3.1, 2.3], ['1/27/2020', 2.0, 8.0],
-                       ['1/28/2020', 1.6, 1.7], ['1/28/2020', 5.1, 3.1], ['1/29/2020', 1.5, 1.1], ['1/29/2020', 1.6, 4.0]];
+    var accessType = props.info.Access;
+    var dataObjects = props.info.Data;
+    var labels = props.info.Labels;
 
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
-        var dualValues = false;
+        var dualValues = labels.col3 || 0;
 
-        data.addColumn('string', 'Time');
+        data.addColumn('string', labels.col1);
         // if there are two numeric values, add an extra column
-        if (dataObjects[0].length > 2) {
-            data.addColumn('number', 'Sent');
-            data.addColumn('number', 'Received');
-            dualValues = true;
+        if (dualValues) {
+            data.addColumn('number', labels.col2);
+            data.addColumn('number', labels.col3);
         } else {
-            data.addColumn('number', 'Data');
+            data.addColumn('number', labels.col2);
         }
 
         // Add each row based on the data (assuming array of two values)
         for (var dataObject of dataObjects) {
-            var row = [dataObject[0], dataObject[1]];
+            var row = [dataObject.col1, parseFloat(dataObject.col2)];
             if (dualValues) {
-                row.push(-dataObject[2]); // negative to make it under the first
+                row.push(-parseFloat(dataObject.col3)); // negative to make it under the first
             }
             data.addRow(row);
         }

@@ -21,32 +21,37 @@ const InformationText = function() {
     return <div className="TestCompInfo">InformationTextHere</div>
 }
 
+const PlaceholderText = function(props) {
+    return <div className="TestCompInfo">Type: {props.type ? props.type : "undefined"}, Access: {props.access}</div>
+}
+
 //Handler that will triage the creation of the display type we are looking for
 //Inputs:
 //--- props.type - "PieChart", "InformationText"
 const InformationSection = (props) => {
-    var type = props.info.DisplayType;
+    var object = props.obj.object;
+    var type = (object ? object.DisplayType : undefined);
     switch (type) {
-        case "PieChart":
-            return <PieChart info={props.info}/>
+        case "Pie":
+            return <PieChart info={object}/>
         case "LineGraph":
-            return <LineGraph info={props.info}/>
+            return <LineGraph info={object}/>
         case "InformationText":
             return <InformationText/>
         case "SummaryTable":
-            return <SummaryTable info={props.info} />
-        case "ChartTable":
-            return <GraphTable info={props.info}/>
-        case "DonutChart":
-            return <DonutChart info={props.info} />
+            return <SummaryTable info={object} />
+        case "GraphTable":
+            return <GraphTable info={object}/>
+        case "Donut":
+            return <DonutChart info={object} />
         case "Table":
-            return <SimpleTable info={props.info}/>
-        case "BarChart":
-            return <BarChart info={props.info} />
-        case "AreaChart":
-            return <AreaChart info={props.info} />
+            return <SimpleTable info={object}/>
+        case "Bar":
+            return <BarChart info={object} />
+        case "Area":
+            return <AreaChart info={object} />
         default:
-            return <InformationText/>
+            return <PlaceholderText type={type} access={props.obj.access}/>
     }
 }
 
@@ -64,7 +69,7 @@ const ReportPage = (props) => {
         <Header title={title}/>
         <CommentBox commentCallback={props.commentCallback} id={pageNumber} pageNumber={pageNumber} />
         {objectList.map(obj =>
-            <InformationSection key={obj.object.Access + "_" + pageNumber + "_" + obj.depth} info={obj.object}/>
+            <InformationSection key={obj.access + "_" + pageNumber + "_" + obj.depth} obj={obj}/>
         )}
         <Footer pageNumber={pageNumber} totalPageNumber={totalPageNumber}/>
     </div>
