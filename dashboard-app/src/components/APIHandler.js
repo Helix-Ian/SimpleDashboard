@@ -133,7 +133,7 @@ const getPieChart = function() {
 
 const getLineGraph = function() {
     return {
-        "Access": "ExploitAttackTimeline",
+        "Access": "LineGraphAccess",
 	    "DisplayType": "LineGraph", 
 	    "Data": [
             {

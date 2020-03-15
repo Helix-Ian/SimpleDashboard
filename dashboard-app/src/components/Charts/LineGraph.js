@@ -1,33 +1,39 @@
 import React, { useEffect } from 'react';
 
 function LineGraph(props) {
-  //Get data objects and the accessType for this table
   var dataObjects = props.info.Data;
   var accessType = props.info.Access;
+  var labels = props.info.Labels;
 
   const renderTable = () => {
     var data = new window.google.visualization.DataTable();
 
-    // Add the given columns from the data, using the first entry as a basis
-    for (var key in dataObjects[0]) {
-      var columnType = key !== 'Time' ? 'number' : 'string';
-      data.addColumn(columnType, key);
-    }
+    data.addColumn('string', labels.col1);
+    data.addColumn('number', labels.col2);
+    data.addColumn('number', labels.col3);
+    data.addColumn('number', labels.col4);
 
     for (var dataObject of dataObjects) {
-      var row = [];
-      for (var key in dataObject) {
-        row.push(dataObject[key]);
-      }
-
-      data.addRow(row);
+      var rowIndex = data.addRow([
+        dataObject.col1,
+        parseFloat(dataObject.col2),
+        parseFloat(dataObject.col3),
+        parseFloat(dataObject.col4)
+      ]);
     }
 
     var options = {
       title: 'Exploit Attack Timeline',
       curveType: 'function',
       height: 500,
-      colors: ['yellow', 'orange', 'red']
+      hAxis: {
+        slantedText: true,
+        slantedTextAngle: 45,
+        textStyle: {
+          fontSize: 12
+        }
+      },
+      colors: ['#FFE066', '#FFA500', '#CD5C5C']
     };
 
     var chart = new window.google.visualization.LineChart(
