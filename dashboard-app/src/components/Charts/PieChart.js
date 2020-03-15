@@ -22,13 +22,13 @@ function PieChart(props) {
         dataObject.col1,
         parseFloat(dataObject.col2),
         parseFloat(dataObject.col3)
-
       ]);
+
       var percentage = (parseFloat(dataObject.col2) * 100) / total;
       data.setFormattedValue(
         rowIndex,
         0,
-        dataObject.col1 + ' - ' + percentage.toFixed(2) + '%'
+        percentage.toFixed(2) + '%' + ' ' + dataObject.col1
       );
     }
 
