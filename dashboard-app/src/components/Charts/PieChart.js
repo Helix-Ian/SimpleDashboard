@@ -4,32 +4,45 @@ function PieChart(props) {
   //Get data objects and the accessType for this table
   var dataObjects = props.info.Data;
   var accessType = props.info.Access;
+  var labels = props.info.Labels;
 
   const renderTable = () => {
     var data = new window.google.visualization.DataTable();
 
-    // Add the given columns from the data, using the first entry as a basis
-    for (var key in dataObjects[0]) {
-      var columnType = key !== 'Total' ? 'string' : 'number';
-      data.addColumn(columnType, key);
-    }
+    data.addColumn('string', labels.col1);
+    data.addColumn('number', labels.col2);
+    data.addColumn('number', labels.col3);
+
+    var total = dataObjects
+      .map(cur => parseFloat(cur.col2))
+      .reduce((prev, cur) => prev + cur);
 
     for (var dataObject of dataObjects) {
-      var row = [];
-      for (var key in dataObject) {
-        row.push(dataObject[key]);
-      }
+      var rowIndex = data.addRow([
+        dataObject.col1,
+        parseFloat(dataObject.col2),
+        parseFloat(dataObject.col3)
 
-      data.addRow(row);
+      ]);
+      var percentage = (parseFloat(dataObject.col2) * 100) / total;
+      data.setFormattedValue(
+        rowIndex,
+        0,
+        dataObject.col1 + ' - ' + percentage.toFixed(2) + '%'
+      );
     }
 
     var options = {
       title: 'Exploit Attacks by Severity',
+      width: 750,
       slices: {
-        0: { color: 'yellow' },
-        1: { color: 'orange' },
-        2: { color: 'red' }
-      }
+        0: { color: '#FFE066' },
+        1: { color: '#FFA500' },
+        2: { color: '#CD5C5C' }
+      },
+      legend: { position: 'right', alignment: 'center' },
+      pieSliceText: 'none',
+      tooltip: { isHtml: true, showColorCode: true }
     };
 
     var chart = new window.google.visualization.PieChart(

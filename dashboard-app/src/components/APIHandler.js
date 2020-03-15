@@ -121,7 +121,7 @@ const getBarChart = function() {
 const getPieChart = function() {
     //Call API
     return {
-        "Access": "ExploitAttackBySeverity",
+        "Access": "PieChartAccess",
         "DisplayType": "PieChart",
         "Data": [
             {"Category":"Medium","Total":1644},
@@ -133,7 +133,7 @@ const getPieChart = function() {
 
 const getLineGraph = function() {
     return {
-        "Access": "ExploitAttackTimeline",
+        "Access": "LineGraphAccess",
 	    "DisplayType": "LineGraph", 
 	    "Data": [
             {
