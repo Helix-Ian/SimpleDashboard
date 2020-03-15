@@ -38,6 +38,8 @@ class PageController extends Component {
         var paginatedList = [];
         var objectList = [];
         var pageNumber = 1;
+        var totalPageNumber;
+
         // iterate over the first layer
         for (var i = 0; i < toc.length; i++) {
           var currentObject = toc[i];
@@ -57,6 +59,10 @@ class PageController extends Component {
             }
           }
         }
+
+        totalPageNumber = pageNumber - 1;
+        paginatedList.map(pl => (pl['totalPageNumber'] = totalPageNumber));
+
         return paginatedList;
       }
 
