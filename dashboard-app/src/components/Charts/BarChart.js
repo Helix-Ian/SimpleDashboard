@@ -33,6 +33,7 @@ function BarChart(props) {
 
         var table = new window.google.visualization.ColumnChart(document.getElementById(accessType));
         table.draw(data, options);
+        window.addEventListener('resize', renderTable, false);
     }
     
     useEffect(() => {
@@ -46,7 +47,7 @@ function BarChart(props) {
     })
 
     return (
-        <div id={accessType}></div>
+        <div class='ChartDiv' id={accessType}></div>
     );
 }
 

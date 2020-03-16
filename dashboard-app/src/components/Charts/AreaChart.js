@@ -51,6 +51,7 @@ function AreaChart(props) {
 
         var table = new window.google.visualization.AreaChart(document.getElementById(accessType));
         table.draw(data, options);
+        window.addEventListener('resize', renderTable, false);
     }
     
     useEffect(() => {
@@ -64,7 +65,7 @@ function AreaChart(props) {
     })
 
     return (
-        <div id={accessType}></div>
+        <div class='ChartDiv' id={accessType}></div>
     );
 }
 

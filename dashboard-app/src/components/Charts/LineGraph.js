@@ -40,6 +40,7 @@ function LineGraph(props) {
       document.getElementById(accessType)
     );
     chart.draw(data, options);
+    window.addEventListener('resize', renderTable, false);
   };
 
   useEffect(() => {
@@ -52,7 +53,7 @@ function LineGraph(props) {
     renderTable();
   });
 
-  return <div id={accessType}></div>;
+  return <div class='ChartDiv' id={accessType}></div>;
 }
 
 export default LineGraph;
