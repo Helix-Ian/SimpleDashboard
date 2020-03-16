@@ -103,22 +103,25 @@
   border-style: dotted;
   padding-bottom: 10px;
   padding-top: 10px;
+  padding-right: 5px;
   background-color: #c0c0c0;
 }
 
 .TOCColumnLeft {
   display: inline-block;
-  width: 95%;
+  width: 90%;
 }
 
 .TOCColumnRight {
+  text-align: center;
   display: inline-block;
-  width: 5%;
+  width: 10%;
 }
 
 .TOCContainer {
   position:fixed;
   margin-top:20px;
+  padding-right: 5px;
   top: 0; 
   right:0;  
   width: 25%;
