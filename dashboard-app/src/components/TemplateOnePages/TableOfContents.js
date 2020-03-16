@@ -85,7 +85,7 @@ const ToCRow = (props) => {
 
     var dropdown = ""
     if (props.numberOfChildren > 0) {
-        if (props.currentSelections[depth] == content) {
+        if (currentSelections[depth] == content) {
             dropdown = "▿"
         } else {
             dropdown = "▹"
