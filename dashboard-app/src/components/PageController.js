@@ -46,7 +46,7 @@ class PageController extends Component {
 
           objectList = this.buildObjectList(currentObject, [], 0, null, false);
           var title = currentObject.Title;
-          var totalPageNumber = toc.length;
+          totalPageNumber = toc.length;
           paginatedList.push({"objectList":objectList, "pageNumber":pageNumber, title: title,  "totalPageNumber":totalPageNumber});
           pageNumber += 1;
 
@@ -208,16 +208,28 @@ class PageController extends Component {
       viewModeCallback(showAllPages) {
         this.setState({showAllPages});
       }
+
+      /**
+       * Returns true if the page is still loading
+       */
+      isLoading() {
+        return this.state.informationFromApi.length === 0;
+      }
   
       //We will need to pass in props to report pages. Here we render the template page and then all info that 
       //Serge will pass to us
       render() {
         return (
         <div>
-          <div className="ControllerContainer">
+          <div className="LoadingContainer" hidden={!this.isLoading()}>
+            <div className="LoadingSpinner">
+              <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+          </div>
+          <div hidden={this.isLoading()} className="ControllerContainer">
             <div className="ReportContainer">
               {this.state.informationFromApi.map((info, i)=>
-                <div key={info.pageNumber} className={`Page${info.pageNumber} Wrapper`} ref={this.refArray[i]} hidden={!this.state.showAllPages && this.state.currentPage != info.pageNumber}>
+                <div key={info.pageNumber} className={`Page${info.pageNumber} Wrapper`} ref={this.refArray[i]} hidden={!this.state.showAllPages && this.state.currentPage !== info.pageNumber}>
                   <ReportPage commentCallback={this.commentCallback.bind(this)} key={info.pageNumber} pageJson={info}/>
                 </div>)
               }

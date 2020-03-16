@@ -24,6 +24,7 @@ function DonutChart(props) {
         var options = {
             title: 'App Categories',
             pieHole: 0.6,
+            pieSliceText: 'none',
             sort: 'disable',
             allowHtml: true,
             legend: {
