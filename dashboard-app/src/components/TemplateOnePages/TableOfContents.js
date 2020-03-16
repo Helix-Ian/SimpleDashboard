@@ -1,15 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import '../../App.css';
 import CommentNavButtons from './CommentNavButtons';
 import DoneButton from './DoneButton';
 import PageDisplayButtons from './PageDisplayButtons';
 
+
+class TableOfContents extends Component {
+
+    constructor(props) {
+        super(props);
+        //Set initial state here for anything inside of the ToC
+        this.state = {
+        };
+        this.tocRows = []
+        this.pageNumber = 1
+    }
+
+    createToCRows(rowMap, tocRows, parentObj) {
+        if (rowMap.tocJson) {
+            // go through the top-level objects
+            for (var i = 0; i < rowMap.tocJson.length; i++) {
+                var currentObj = rowMap.tocJson[i];
+                if (rowMap.depth <= 1) {
+                    this.pageNumber += 1
+                }
+                tocRows.push(<ToCRow key={this.pageNumber} parent={parentObj} content={currentObj} refArray={rowMap.refArray} depth={rowMap.depth} pageSwitchCallback={rowMap.pageSwitchCallback} pageNumber={this.pageNumber}/>);
+                var nextProps = {"tocJson" : currentObj.Sub, "refArray" : rowMap.refArray, depth : rowMap.depth+1, pageSwitchCallback : rowMap.pageSwitchCallback}
+                this.createToCRows(nextProps, tocRows, currentObj)
+            }
+        }
+        return tocRows
+    }
+      
+    componentDidUpdate = () => {
+        this.pageNumber = 1
+        var recurseFuncMap = {"tocJson" : this.props.tocJson, "refArray" : this.props.refArray, depth : 0, pageSwitchCallback : this.props.pageSwitchCallback}
+        this.tocRows = this.createToCRows(recurseFuncMap, [], null);
+    }
+
+    render() {
+        return(
+        <div>
+            <PageDisplayButtons viewModeCallback={this.props.viewModeCallback} />
+            <div className="TOCRowsContainer">
+                {this.tocRows}
+            </div>
+            <CommentNavButtons commentCallback={this.props.commentCallback} pageSwitchCallback={this.props.pageSwitchCallback} comments={this.props.comments} lastActiveCommentId={this.props.lastActiveCommentId} />
+            <DoneButton comments={this.props.comments} />
+        </div>
+        )
+    }
+}
+
+
 const ToCRow = (props) => {
     var content = props.content;
     var depth = props.depth
-    var pageNum = props.pageNum;
-    var sub = props.sub;
+    var pageNum = props.pageNumber;
 
     return (
         <div>
@@ -19,43 +67,7 @@ const ToCRow = (props) => {
                     <div className="TOCColumnRight">{pageNum}</div>
                 </div>
             </div>
-            {sub ? sub.map((subObj, i) =>
-                <ToCRow key={i} content={subObj} refArray={props.refArray} depth={depth + 1} pageSwitchCallback={props.pageSwitchCallback} pageNum={pageNum} sub={subObj.Sub}></ToCRow>
-             ) : undefined}
         </div>
-    )
-}
-
-const TableOfContents = (props) => {
-    if (props.tocJson) {
-        var tocRows = [];
-        var pageNumber = 1;
-        // go through the top-level objects
-        for (var i = 0; i < props.tocJson.length; i++) {
-            var currentObj = props.tocJson[i];
-            tocRows.push(<ToCRow key={pageNumber} content={currentObj} refArray={props.refArray} depth={0} pageSwitchCallback={props.pageSwitchCallback} pageNum={pageNumber}/>);
-            pageNumber += 1;
-
-            // if the object has children, iterate through that and assign the sub prop to iterate through its children
-            if (currentObj.Sub) {
-                for (var j = 0; j < currentObj.Sub.length; j++) {
-                    var childObj = currentObj.Sub[j];
-                    tocRows.push(<ToCRow key={pageNumber} content={childObj} refArray={props.refArray} depth={1} pageSwitchCallback={props.pageSwitchCallback} pageNum={pageNumber} sub={childObj.Sub}></ToCRow>);
-                    pageNumber += 1;
-                }
-            }
-        }
-    }
-
-    return(
-    <div>
-        <PageDisplayButtons viewModeCallback={props.viewModeCallback} />
-        <div className="TOCRowsContainer">
-            {tocRows}
-        </div>
-        <CommentNavButtons commentCallback={props.commentCallback} pageSwitchCallback={props.pageSwitchCallback} comments={props.comments} lastActiveCommentId={props.lastActiveCommentId} />
-        <DoneButton comments={props.comments} />
-    </div>
     )
 }
 
