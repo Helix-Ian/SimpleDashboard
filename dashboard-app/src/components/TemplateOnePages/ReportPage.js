@@ -34,7 +34,7 @@ const InformationSection = (props) => {
     switch (type) {
         case "Pie":
             return <PieChart info={object}/>
-        case "LineGraph":
+        case "Line":
             return <LineGraph info={object}/>
         case "InformationText":
             return <InformationText/>
