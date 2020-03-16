@@ -10,7 +10,23 @@ class TableOfContents extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            currentSelections : []
+        }
         this.pageNumber = 0
+    }
+
+    handleSelection(content, depth) {
+        var selectionArray = this.state.currentSelections
+        if (selectionArray[depth] == content) {
+            selectionArray.length = depth
+            this.setState({currentSelections:selectionArray})
+        } else {
+            selectionArray[depth] = content
+            selectionArray.length = depth + 1
+            this.setState({currentSelections:selectionArray})
+        }
+
     }
 
     /**
@@ -24,10 +40,14 @@ class TableOfContents extends Component {
             // go through the top-level objects
             for (var i = 0; i < rowMap.tocJson.length; i++) {
                 var currentObj = rowMap.tocJson[i];
+                var numberOfChildren = 0
+                if (currentObj.Sub) {
+                    numberOfChildren = currentObj.Sub.length
+                }
                 if (rowMap.depth <= 1) {
                     this.pageNumber += 1
                 }
-                tocRows.push(<ToCRow key={currentObj.Title + "_" + this.pageNumber} parent={parentObj} content={currentObj} refArray={rowMap.refArray} depth={rowMap.depth} pageSwitchCallback={rowMap.pageSwitchCallback} pageNumber={this.pageNumber}/>);
+                tocRows.push(<ToCRow key={currentObj.Title + "_" + this.pageNumber} parent={parentObj} content={currentObj} refArray={rowMap.refArray} depth={rowMap.depth} pageSwitchCallback={rowMap.pageSwitchCallback} pageNumber={this.pageNumber} handleSelection={this.handleSelection.bind(this)} numberOfChildren={numberOfChildren} currentSelections={this.state.currentSelections}/>);
                 var nextProps = {"tocJson" : currentObj.Sub, "refArray" : rowMap.refArray, depth : rowMap.depth+1, pageSwitchCallback : rowMap.pageSwitchCallback}
                 this.createToCRows(nextProps, tocRows, currentObj)
             }
@@ -39,11 +59,15 @@ class TableOfContents extends Component {
         this.pageNumber = 0
         var recurseFuncMap = {"tocJson" : this.props.tocJson, "refArray" : this.props.refArray, depth : 0, pageSwitchCallback : this.props.pageSwitchCallback}
         var tocRows = this.createToCRows(recurseFuncMap, [], null);
+
+        var filteredRows = tocRows.filter((row) => row.props.depth == 0 || row.props.parent == this.state.currentSelections[row.props.depth-1])
+
+
         return(
         <div>
             <PageDisplayButtons viewModeCallback={this.props.viewModeCallback} />
             <div className="TOCRowsContainer">
-                {tocRows}
+                {filteredRows}
             </div>
             <CommentNavButtons commentCallback={this.props.commentCallback} pageSwitchCallback={this.props.pageSwitchCallback} comments={this.props.comments} lastActiveCommentId={this.props.lastActiveCommentId} />
             <DoneButton comments={this.props.comments} />
@@ -57,12 +81,24 @@ const ToCRow = (props) => {
     var content = props.content;
     var depth = props.depth
     var pageNum = props.pageNumber;
+    var currentSelections = props.currentSelections
+
+    var dropdown = ""
+    if (props.numberOfChildren > 0) {
+        if (props.currentSelections[depth] == content) {
+            dropdown = "▿"
+        } else {
+            dropdown = "▹"
+        }
+    }
+
+    
 
     return (
         <div>
-            <div onClick={() => {props.refArray[pageNum - 1].current.scrollIntoView({behavior:'smooth'}); props.pageSwitchCallback(pageNum);}}>
+            <div onClick={() => {props.refArray[pageNum - 1].current.scrollIntoView({behavior:'smooth'}); props.pageSwitchCallback(pageNum); props.handleSelection(content, depth)}}>
                 <div className={"TOCRow + ContentStyle_" + depth}>
-                    <div className="TOCColumnLeft">{content.Title}</div>
+                    <div className="TOCColumnLeft">{content.Title} {dropdown}</div>
                     <div className="TOCColumnRight">{pageNum}</div>
                 </div>
             </div>
