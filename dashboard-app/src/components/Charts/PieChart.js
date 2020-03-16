@@ -25,16 +25,27 @@ function PieChart(props) {
       ]);
 
       var percentage = (parseFloat(dataObject.col2) * 100) / total;
-      data.setFormattedValue(
+      // Added to catch data instances where no total value is provided in API response
+      if (dataObject.col3 === undefined) {
+        data.setFormattedValue(
         rowIndex,
         0,
         percentage.toFixed(2) + '%' + ' ' + dataObject.col1
       );
+      } else {
+        data.setFormattedValue(
+        rowIndex,
+        0,
+        percentage.toFixed(2) + '%' + ' ' + dataObject.col1 + ' ' + '(' + dataObject.col3 + ')'
+      );
+      }
+      
     }
 
     var options = {
       title: 'Exploit Attacks by Severity',
-      width: 750,
+      width: 650,
+      height: 240,
       slices: {
         0: { color: '#FFE066' },
         1: { color: '#FFA500' },
