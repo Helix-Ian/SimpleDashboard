@@ -10,11 +10,7 @@ class TableOfContents extends Component {
 
     constructor(props) {
         super(props);
-        //Set initial state here for anything inside of the ToC
-        this.state = {
-        };
-        this.tocRows = []
-        this.pageNumber = 1
+        this.pageNumber = 0
     }
 
     createToCRows(rowMap, tocRows, parentObj) {
@@ -25,26 +21,23 @@ class TableOfContents extends Component {
                 if (rowMap.depth <= 1) {
                     this.pageNumber += 1
                 }
-                tocRows.push(<ToCRow key={this.pageNumber} parent={parentObj} content={currentObj} refArray={rowMap.refArray} depth={rowMap.depth} pageSwitchCallback={rowMap.pageSwitchCallback} pageNumber={this.pageNumber}/>);
+                tocRows.push(<ToCRow key={currentObj.Title + "_" + this.pageNumber} parent={parentObj} content={currentObj} refArray={rowMap.refArray} depth={rowMap.depth} pageSwitchCallback={rowMap.pageSwitchCallback} pageNumber={this.pageNumber}/>);
                 var nextProps = {"tocJson" : currentObj.Sub, "refArray" : rowMap.refArray, depth : rowMap.depth+1, pageSwitchCallback : rowMap.pageSwitchCallback}
                 this.createToCRows(nextProps, tocRows, currentObj)
             }
         }
         return tocRows
     }
-      
-    componentDidUpdate = () => {
-        this.pageNumber = 1
-        var recurseFuncMap = {"tocJson" : this.props.tocJson, "refArray" : this.props.refArray, depth : 0, pageSwitchCallback : this.props.pageSwitchCallback}
-        this.tocRows = this.createToCRows(recurseFuncMap, [], null);
-    }
 
     render() {
+        this.pageNumber = 0
+        var recurseFuncMap = {"tocJson" : this.props.tocJson, "refArray" : this.props.refArray, depth : 0, pageSwitchCallback : this.props.pageSwitchCallback}
+        var tocRows = this.createToCRows(recurseFuncMap, [], null);
         return(
         <div>
             <PageDisplayButtons viewModeCallback={this.props.viewModeCallback} />
             <div className="TOCRowsContainer">
-                {this.tocRows}
+                {tocRows}
             </div>
             <CommentNavButtons commentCallback={this.props.commentCallback} pageSwitchCallback={this.props.pageSwitchCallback} comments={this.props.comments} lastActiveCommentId={this.props.lastActiveCommentId} />
             <DoneButton comments={this.props.comments} />
