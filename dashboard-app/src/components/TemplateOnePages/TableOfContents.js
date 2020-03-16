@@ -13,6 +13,12 @@ class TableOfContents extends Component {
         this.pageNumber = 0
     }
 
+    /**
+     * Recursive Function to create all the ToC Rows without nesting Divs
+     * @param {Map} rowMap The items that will be needed to create the row
+     * @param {List of ToCRows} tocRows list of the rows that we have collected recursively
+     * @param {parentObj} parentObj parent object (if it exists) of the object we are currently on
+     */
     createToCRows(rowMap, tocRows, parentObj) {
         if (rowMap.tocJson) {
             // go through the top-level objects
