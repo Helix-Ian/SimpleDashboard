@@ -45,7 +45,7 @@ class TableOfContents extends Component {
             <div className="TOCRowsContainer">
                 {tocRows}
             </div>
-            <CommentNavButtons commentCallback={this.props.commentCallback} pageSwitchCallback={this.props.pageSwitchCallback} comments={this.props.comments} lastActiveCommentId={this.props.lastActiveCommentId} />
+            <CommentNavButtons commentCallback={this.props.commentCallback} comments={this.props.comments} lastActiveCommentId={this.props.lastActiveCommentId} />
             <DoneButton comments={this.props.comments} />
         </div>
         )
