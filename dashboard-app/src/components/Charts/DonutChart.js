@@ -41,6 +41,7 @@ function DonutChart(props) {
 
         var table = new window.google.visualization.PieChart(document.getElementById(accessType));
         table.draw(data, options);
+        window.addEventListener('resize', renderTable, false);
     }
     
     useEffect(() => {
@@ -54,7 +55,7 @@ function DonutChart(props) {
     })
 
     return (
-        <div id={accessType}></div>
+        <div class='ChartDiv' id={accessType}></div>
     );
 }
 

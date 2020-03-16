@@ -34,7 +34,6 @@ function PieChart(props) {
 
     var options = {
       title: 'Exploit Attacks by Severity',
-      width: 750,
       slices: {
         0: { color: '#FFE066' },
         1: { color: '#FFA500' },
@@ -49,6 +48,7 @@ function PieChart(props) {
       document.getElementById(accessType)
     );
     chart.draw(data, options);
+    window.addEventListener('resize', renderTable, false);
   };
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function PieChart(props) {
     renderTable();
   });
 
-  return <div id={accessType}></div>;
+  return <div class='ChartDiv' id={accessType}></div>;
 }
 
 export default PieChart;

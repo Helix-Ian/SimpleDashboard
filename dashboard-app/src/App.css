@@ -51,6 +51,10 @@
   border-color: black;
 }
 
+.ChartDiv {
+  max-width: 100%;
+}
+
 .TestHeader {
   padding-top: 30px;
   padding-bottom: 30px;
