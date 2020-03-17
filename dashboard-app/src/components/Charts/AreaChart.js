@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ChartTitle from '../TemplateOnePages/ChartTitle';
 
 /*
     Exact data format is unknown, expecting array of string + one or two values
@@ -39,7 +40,6 @@ function AreaChart(props) {
         // the format option is supposed to remove the minus sign on the axis, and it works for the data,
         // but for some reason it's not working on the axis
         var options = {
-            title: title,
             vAxis: {
                 format: "#,###.##GB;#,###.##GB"
             },
@@ -64,7 +64,10 @@ function AreaChart(props) {
     })
 
     return (
-        <div className='ChartDiv' id={accessType}></div>
+        <div>
+            <ChartTitle title={title} />
+            <div className='ChartDiv' id={accessType}></div>
+        </div>
     );
 }
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ChartTitle from '../TemplateOnePages/ChartTitle';
 
 function DonutChart(props) {
 
@@ -23,7 +24,6 @@ function DonutChart(props) {
         }
 
         var options = {
-            title: title,
             pieHole: 0.6,
             pieSliceText: 'none',
             sort: 'disable',
@@ -56,7 +56,10 @@ function DonutChart(props) {
     })
 
     return (
-        <div className='ChartDiv' id={accessType}></div>
+        <div>
+            <ChartTitle title={title} />
+            <div className='ChartDiv' id={accessType}></div>
+        </div>
     );
 }
 

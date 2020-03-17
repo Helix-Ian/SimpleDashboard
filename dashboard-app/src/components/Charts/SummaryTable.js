@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-
+import ChartTitle from '../TemplateOnePages/ChartTitle';
 
 /*
     Expects an array of objects, each with an entry determining the base column, and a Data array
@@ -79,7 +79,6 @@ const SummaryTable = (props) => {
         percentFormat.format(data, 3);
 
         var options = {
-            title: title,
             sort: 'disable',
             allowHtml: true
         };
@@ -99,7 +98,10 @@ const SummaryTable = (props) => {
     })
 
     return (
-        <div id={accessType}></div>
+        <div>
+            <ChartTitle title={title} />
+            <div className='ChartDiv' id={accessType}></div>
+        </div>
     );
 }
 

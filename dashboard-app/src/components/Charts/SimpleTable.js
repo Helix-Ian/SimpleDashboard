@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-
+import ChartTitle from '../TemplateOnePages/ChartTitle';
 
 /*
     Expected data: List of dictionaries, with static column names each value being the row value
@@ -31,7 +31,6 @@ const SimpleTable = (props) => {
         }
 
         var options = {
-            title: title,
             sort: 'disable'
         };
 
@@ -50,7 +49,10 @@ const SimpleTable = (props) => {
     })
 
     return (
-        <div id={accessType}></div>
+        <div>
+            <ChartTitle title={title} />
+            <div className='ChartDiv' id={accessType}></div>
+        </div>
     );
 }
 
