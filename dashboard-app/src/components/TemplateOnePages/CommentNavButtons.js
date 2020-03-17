@@ -6,10 +6,12 @@ const CommentNavButtons = (props) => {
      * Focus a comment
      */
     const drawFocus = (comment) => {
-        props.pageSwitchCallback(comment.page);
         props.commentCallback(false, {id: comment.id});
-        comment.ref.current.focus();
         comment.ref.current.scrollIntoView({behavior:'smooth', block:'center'});
+        setTimeout(() => {
+            // wait until either scroll or page switch finishes
+            comment.ref.current.focus();
+        }, 500);
     }
 
     /**
