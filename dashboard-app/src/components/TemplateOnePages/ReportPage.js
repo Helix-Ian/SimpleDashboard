@@ -12,6 +12,7 @@ import BarChart from '../Charts/BarChart';
 import AreaChart from '../Charts/AreaChart';
 import PieChart from '../Charts/PieChart';
 import LineGraph from '../Charts/LineGraph';
+import Values from '../Charts/Values';
 
 
 
@@ -50,6 +51,8 @@ const InformationSection = (props) => {
             return <BarChart info={object} />
         case "Area":
             return <AreaChart info={object} />
+        case "Values":
+            return <Values info={object} />
         default:
             return <PlaceholderText type={type} access={props.obj.access}/>
     }
