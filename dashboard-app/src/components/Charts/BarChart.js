@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ChartTitle from '../TemplateOnePages/ChartTitle';
 
 /*
     Expecting Data to be a list of objects, each containing a string for the first column and a number for the second
@@ -24,7 +25,6 @@ function BarChart(props) {
         }
 
         var options = {
-            title: title,
             sort: 'disable',
             allowHtml: true,
             legend: {
@@ -48,7 +48,10 @@ function BarChart(props) {
     })
 
     return (
+    <div>
+        <ChartTitle title={title} />
         <div className='ChartDiv' id={accessType}></div>
+    </div>
     );
 }
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ChartTitle from '../TemplateOnePages/ChartTitle';
 
 function PieChart(props) {
   //Get data objects and the accessType for this table
@@ -34,7 +35,6 @@ function PieChart(props) {
     }
 
     var options = {
-      title: title,
       slices: {
         0: { color: '#FFE066' },
         1: { color: '#FFA500' },
@@ -62,7 +62,12 @@ function PieChart(props) {
     renderTable();
   });
 
-  return <div className='ChartDiv' id={accessType}></div>;
+  return (
+    <div>
+      <ChartTitle title={title} />
+      <div className='ChartDiv' id={accessType}></div>
+    </div>
+  );
 }
 
 export default PieChart;

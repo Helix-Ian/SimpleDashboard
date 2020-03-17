@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ChartTitle from '../TemplateOnePages/ChartTitle';
 
 function LineGraph(props) {
   var dataObjects = props.info.Data;
@@ -24,7 +25,6 @@ function LineGraph(props) {
     }
 
     var options = {
-      title: title,
       curveType: 'function',
       height: 500,
       hAxis: {
@@ -54,7 +54,12 @@ function LineGraph(props) {
     renderTable();
   });
 
-  return <div className='ChartDiv' id={accessType}></div>;
+  return (
+    <div>
+      <ChartTitle title={title} />
+      <div className='ChartDiv' id={accessType}></div>
+    </div>
+  );
 }
 
 export default LineGraph;

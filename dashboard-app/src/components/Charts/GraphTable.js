@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ChartTitle from '../TemplateOnePages/ChartTitle';
 
 /*
 props will have 1 key "info" - it will have this structure. Access will be the unique key of the 
@@ -62,7 +63,6 @@ function GraphTable(props) {
         }
 
         var options = {
-            title: title,
             sort: 'disable',
             allowHtml: true
         };
@@ -82,7 +82,10 @@ function GraphTable(props) {
     })
 
     return (
-        <div id={accessType}></div>
+        <div>
+            <ChartTitle title={title} />
+            <div className='ChartDiv' id={accessType}></div>
+        </div>
     );
 }
 
