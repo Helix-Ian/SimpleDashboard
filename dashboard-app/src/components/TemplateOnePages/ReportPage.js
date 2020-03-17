@@ -13,6 +13,7 @@ import AreaChart from '../Charts/AreaChart';
 import PieChart from '../Charts/PieChart';
 import LineGraph from '../Charts/LineGraph';
 import Values from '../Charts/Values';
+import Text from '../Charts/Text';
 
 
 
@@ -53,6 +54,8 @@ const InformationSection = (props) => {
             return <AreaChart info={object} />
         case "Values":
             return <Values info={object} />
+        case "Text":
+            return <Text info={object} />
         default:
             return <PlaceholderText type={type} access={props.obj.access}/>
     }
