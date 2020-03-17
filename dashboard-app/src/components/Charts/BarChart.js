@@ -9,13 +9,14 @@ function BarChart(props) {
 
     var dataObjects = props.info.Data;
     var labels = props.info.Labels;
+    var title = props.info.Title;
 
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
 
         // assuming col1 is always a String and col2 is always a Number
-        data.addColumn('string', labels.col1);
-        data.addColumn('number', labels.col2);
+        data.addColumn('string', labels[0].label);
+        data.addColumn('number', labels[1].label);
 
         // Add each row based on the data (assuming array of two values)
         for (var dataObject of dataObjects) {
@@ -23,7 +24,7 @@ function BarChart(props) {
         }
 
         var options = {
-            title: "Virus Timeline",
+            title: title,
             sort: 'disable',
             allowHtml: true,
             legend: {
@@ -47,7 +48,7 @@ function BarChart(props) {
     })
 
     return (
-        <div class='ChartDiv' id={accessType}></div>
+        <div className='ChartDiv' id={accessType}></div>
     );
 }
 

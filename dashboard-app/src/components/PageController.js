@@ -223,7 +223,7 @@ class PageController extends Component {
         <div>
           <div className="LoadingContainer" hidden={!this.isLoading()}>
             <div className="LoadingSpinner">
-              <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+              <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
             </div>
           </div>
           <div hidden={this.isLoading()} className="ControllerContainer">

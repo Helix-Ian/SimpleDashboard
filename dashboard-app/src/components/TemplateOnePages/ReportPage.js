@@ -38,7 +38,7 @@ const InformationSection = (props) => {
             return <LineGraph info={object}/>
         case "InformationText":
             return <InformationText/>
-        case "SummaryTable":
+        case "SummTable":
             return <SummaryTable info={object} />
         case "GraphTable":
             return <GraphTable info={object}/>
