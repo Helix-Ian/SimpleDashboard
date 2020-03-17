@@ -20,13 +20,11 @@ class TableOfContents extends Component {
         var selectionArray = this.state.currentSelections
         if (selectionArray[depth] == content) {
             selectionArray.length = depth
-            this.setState({currentSelections:selectionArray})
         } else {
             selectionArray[depth] = content
             selectionArray.length = depth + 1
-            this.setState({currentSelections:selectionArray})
         }
-
+        this.setState({currentSelections:selectionArray})
     }
 
     /**
