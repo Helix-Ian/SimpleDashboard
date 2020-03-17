@@ -54,7 +54,7 @@ function LineGraph(props) {
     renderTable();
   });
 
-  return <div class='ChartDiv' id={accessType}></div>;
+  return <div className='ChartDiv' id={accessType}></div>;
 }
 
 export default LineGraph;

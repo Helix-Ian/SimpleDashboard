@@ -48,7 +48,7 @@ function BarChart(props) {
     })
 
     return (
-        <div class='ChartDiv' id={accessType}></div>
+        <div className='ChartDiv' id={accessType}></div>
     );
 }
 
