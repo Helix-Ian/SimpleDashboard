@@ -15,7 +15,12 @@ class TableOfContents extends Component {
         }
         this.pageNumber = 0
     }
-
+    
+     /**
+     * Toggles selected items when clicked in the ToC dropdown
+     * @param {Obj} content This is the entire content object. 
+     * @param {Number} Depth Determines the index of the array in which the content will be placed/removed. Used to slice end off of array based on where user clicks
+     */
     handleSelection(content, depth) {
         var selectionArray = this.state.currentSelections
         if (selectionArray[depth] == content) {
