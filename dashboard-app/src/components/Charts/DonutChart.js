@@ -6,12 +6,13 @@ function DonutChart(props) {
 
     var dataObjects = props.info.Data;
     var labels = props.info.Labels;
+    var title = props.info.Title;
 
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
         // assuming first column is string and second is number
-        data.addColumn('string', labels.col1);
-        data.addColumn('number', labels.col2);
+        data.addColumn('string', labels[0].label);
+        data.addColumn('number', labels[1].label);
         
         var total = dataObjects.map((cur) => parseFloat(cur.col2)).reduce((prev, cur) => prev + cur);
 
@@ -22,7 +23,7 @@ function DonutChart(props) {
         }
 
         var options = {
-            title: 'App Categories',
+            title: title,
             pieHole: 0.6,
             pieSliceText: 'none',
             sort: 'disable',

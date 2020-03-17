@@ -4,14 +4,15 @@ function LineGraph(props) {
   var dataObjects = props.info.Data;
   var accessType = props.info.Access;
   var labels = props.info.Labels;
+  var title = props.info.Title;
 
   const renderTable = () => {
     var data = new window.google.visualization.DataTable();
 
-    data.addColumn('string', labels.col1);
-    data.addColumn('number', labels.col2);
-    data.addColumn('number', labels.col3);
-    data.addColumn('number', labels.col4);
+    data.addColumn('string', labels[0].label);
+    data.addColumn('number', labels[1].label);
+    data.addColumn('number', labels[2].label);
+    data.addColumn('number', labels[3].label);
 
     for (var dataObject of dataObjects) {
       var rowIndex = data.addRow([
@@ -23,7 +24,7 @@ function LineGraph(props) {
     }
 
     var options = {
-      title: 'Exploit Attack Timeline',
+      title: title,
       curveType: 'function',
       height: 500,
       hAxis: {

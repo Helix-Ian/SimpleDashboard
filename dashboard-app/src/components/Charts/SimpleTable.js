@@ -11,13 +11,14 @@ const SimpleTable = (props) => {
     var dataObjects = props.info.Data
     var labels = props.info.Labels;
     var accessType = props.info.Access
+    var title = props.info.Title;
 
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
 
         // Add the given columns from the data, using the first entry as a basis
         for (var col in labels) {
-            data.addColumn('string', labels[col]);
+            data.addColumn('string', labels[col].label);
         }
         
         // Add each row of data, using given order
@@ -30,6 +31,7 @@ const SimpleTable = (props) => {
         }
 
         var options = {
+            title: title,
             sort: 'disable'
         };
 

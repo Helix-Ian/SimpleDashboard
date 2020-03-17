@@ -5,13 +5,14 @@ function PieChart(props) {
   var dataObjects = props.info.Data;
   var accessType = props.info.Access;
   var labels = props.info.Labels;
+  var title = props.info.Title;
 
   const renderTable = () => {
     var data = new window.google.visualization.DataTable();
 
-    data.addColumn('string', labels.col1);
-    data.addColumn('number', labels.col2);
-    data.addColumn('number', labels.col3);
+    data.addColumn('string', labels[0].label);
+    data.addColumn('number', labels[1].label);
+    data.addColumn('number', labels[2] ? labels[2].label : labels[1].label);
 
     var total = dataObjects
       .map(cur => parseFloat(cur.col2))
@@ -33,7 +34,7 @@ function PieChart(props) {
     }
 
     var options = {
-      title: 'Exploit Attacks by Severity',
+      title: title,
       slices: {
         0: { color: '#FFE066' },
         1: { color: '#FFA500' },

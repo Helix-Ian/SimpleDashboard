@@ -8,25 +8,24 @@ function AreaChart(props) {
     var accessType = props.info.Access;
     var dataObjects = props.info.Data;
     var labels = props.info.Labels;
+    var title = props.info.Title;
 
     const renderTable = () => {
         var data = new window.google.visualization.DataTable();
-        var dualValues = labels.col3 || 0;
+        var dualValues = labels[2] || 0;
 
-        data.addColumn('string', labels.col1);
+        data.addColumn('string', labels[0].label);
+        data.addColumn('number', labels[1].label);
         // if there are two numeric values, add an extra column
         if (dualValues) {
-            data.addColumn('number', labels.col2);
-            data.addColumn('number', labels.col3);
-        } else {
-            data.addColumn('number', labels.col2);
+            data.addColumn('number', labels[2].label);
         }
 
         // Add each row based on the data (assuming array of two values)
         for (var dataObject of dataObjects) {
             var row = [dataObject.col1, parseFloat(dataObject.col2)];
             if (dualValues) {
-                row.push(-parseFloat(dataObject.col3)); // negative to make it under the first
+                row.push(parseFloat(dataObject.col3));
             }
             data.addRow(row);
         }
@@ -40,7 +39,7 @@ function AreaChart(props) {
         // the format option is supposed to remove the minus sign on the axis, and it works for the data,
         // but for some reason it's not working on the axis
         var options = {
-            title: "Bandwidth Summary",
+            title: title,
             vAxis: {
                 format: "#,###.##GB;#,###.##GB"
             },
