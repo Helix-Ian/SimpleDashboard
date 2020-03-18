@@ -69,13 +69,23 @@ const ReportPage = (props) => {
     var totalPageNumber = pageJson.totalPageNumber
     var objectList = pageJson.objectList
 
+    /**
+     * Check if a section should have a comment box
+     * @param {{}} obj The information section object from props
+     * @returns {boolean} true if the section has a comment box, false otherwise
+     */
+    const hasCommentBox = (obj) => {
+        return obj.object && obj.object.DisplayType === "Text";
+    }
     
     return(
     <div className="ReportPageOuterStyle">
         <Header title={title}/>
-        <CommentBox commentCallback={props.commentCallback} id={pageNumber} pageNumber={pageNumber} />
-        {objectList.map(obj =>
-            <InformationSection key={obj.access + "_" + pageNumber + "_" + obj.depth} obj={obj}/>
+        {objectList.map((obj, i) =>
+            <div key={i}>
+                <InformationSection obj={obj}/>
+                {hasCommentBox(obj) ? <CommentBox commentCallback={props.commentCallback} id={pageNumber * 100 + i} pageNumber={pageNumber} /> : undefined}
+            </div>
         )}
         <Footer pageNumber={pageNumber} totalPageNumber={totalPageNumber}/>
     </div>
