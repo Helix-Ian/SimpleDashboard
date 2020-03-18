@@ -109,6 +109,8 @@
   padding-top: 10px;
   padding-right: 5px;
   background-color: #c0c0c0;
+  cursor: pointer;
+
 }
 
 .TOCColumnLeft {
