@@ -35,7 +35,7 @@ const UserDashboard = (props) => {
                     <TableRow className= "tableRow">
                         {columns.map(col =>
                             <TableCell key={col.name}>{col.text}</TableCell>
-                        )}>
+                        )}
                     </TableRow>
                 </TableHead>
                 <TableBody>

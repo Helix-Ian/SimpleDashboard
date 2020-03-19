@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../App.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import UserDashboard from './UserDashboard'
+import {PageContext} from '../App';
 
 class ShowUserList extends Component {
   constructor(props) {
@@ -41,9 +41,9 @@ class ShowUserList extends Component {
     <div>
       <div className="headerLink">
         <h2 className="listTitle">users List</h2>
-            <Link to="/page-controller" className="addLink">
-            + GO TO PAGE CONTROLLER
-            ></Link>
+        <PageContext.Consumer>
+          {ctx => <button onClick={() => ctx.switchPage("value")}>Switch to Page Controller</button>}
+        </PageContext.Consumer>
       </div>
       <div>
         <UserDashboard columns={columns} users={users}/>
