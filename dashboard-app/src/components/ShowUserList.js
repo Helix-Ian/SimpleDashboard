@@ -3,7 +3,6 @@ import '../App.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import UserDashboard from './UserDashboard'
-import PageController from './PageController';
 
 class ShowUserList extends Component {
   constructor(props) {
@@ -43,15 +42,12 @@ class ShowUserList extends Component {
     <div>
       <div className="headerLink">
         <h2 className="listTitle">users List</h2>
-            <Link to="/create-user" className="addLink">
-            + Add New User
+            <Link to="/page-controller" className="addLink">
+            + GO TO PAGE CONTROLLER
             ></Link>
       </div>
       <div>
-      <UserDashboard columns={columns} users={users}/>
-      </div>
-      <div>
-        <PageController />
+        <UserDashboard columns={columns} users={users}/>
       </div>
     </div>
     );

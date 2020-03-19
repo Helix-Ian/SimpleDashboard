@@ -1,5 +1,5 @@
 import React from 'react';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -29,41 +29,32 @@ const UserDashboard = (props) => {
 
     return(
         <div>
-        <table>
-         <thead>
-            <tr className= "tableRow">
-               {columns.map(col =>
-                  <th key={col.name}>{col.text}</th>
-               )}
-            </tr>
-         </thead>
-      </table>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="caption table">
-            <caption>2 minutes to deploy Material UI Table</caption>
-            <TableHead>
-                <TableRow className= "tableRow">
-                    {columns.map(col =>
-                        <TableCell key={col.name}>{col.text}</TableCell>
-                    )}>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {users.map(user => (
-                <TableRow key={user.fName}>
-                    <TableCell component="th" scope="row">
-                    {user.fName}
-                    </TableCell>
-                    <TableCell align="left">{user.mName}</TableCell>
-                    <TableCell align="left">{user.lName}</TableCell>
-                    <TableCell align="left">{user.age}</TableCell>
-                    <TableCell align="left">{user.birthDate}</TableCell>
-                    <TableCell align="left">{user.manager}</TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-            </Table>
-        </TableContainer>
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="caption table">
+                <caption>Cool Caption</caption>
+                <TableHead>
+                    <TableRow className= "tableRow">
+                        {columns.map(col =>
+                            <TableCell key={col.name}>{col.text}</TableCell>
+                        )}>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {users.map(user => (
+                    <TableRow key={user.fName}>
+                        <TableCell component="th" scope="row">
+                        {user.fName}
+                        </TableCell>
+                        <TableCell align="left">{user.mName}</TableCell>
+                        <TableCell align="left">{user.lName}</TableCell>
+                        <TableCell align="left">{user.age}</TableCell>
+                        <TableCell align="left">{user.birthDate}</TableCell>
+                        <TableCell align="left">{user.manager}</TableCell>
+                    </TableRow>
+                    ))}
+                </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     )
 };

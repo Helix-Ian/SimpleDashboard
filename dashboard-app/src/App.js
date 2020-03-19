@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
-import CreateUser from './components/CreateUser';
+import ShowUserList from './components/ShowUserList';
 import PageController from './components/PageController';
 import ShowUserDetails from './components/ShowUserDetails';
 import UpdateUserInfo from './components/UpdateUserInfo';
@@ -12,10 +12,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path='/' component={PageController} />
-          <Route path='/create-user' component={CreateUser} />
-          <Route path='/edit-user/:id' component={UpdateUserInfo} />
-          <Route path='/show-user/:id' component={ShowUserDetails} />
+          <Route exact path='/' component={ShowUserList} />
+          <Route path='/page-controller' component={PageController} />
         </div>
       </Router>
     );
