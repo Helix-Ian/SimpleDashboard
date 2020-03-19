@@ -36,8 +36,7 @@ class ShowUserList extends Component {
       {text: "Birth Date", name: 'birthDate'},
       {text: "Manager", name: 'manager'}
     ]
-    console.log("PrintUser: " + JSON.stringify(users));
-
+    
     return (
     <div>
       <div className="headerLink">

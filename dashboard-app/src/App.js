@@ -3,9 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import ShowUserList from './components/ShowUserList';
 import PageController from './components/PageController';
-import ShowUserDetails from './components/ShowUserDetails';
-import UpdateUserInfo from './components/UpdateUserInfo';
-
 
 class App extends Component {
   render() {
