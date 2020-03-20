@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import UserDashboard from './UserDashboard'
 
 class ShowUserList extends Component {
@@ -25,25 +24,22 @@ class ShowUserList extends Component {
       })
   };
 
-
   render() {
     const users = this.state.users;
     const columns = [
-      {text: "First Name", name: 'fName'},
-      {text: "Middle Name", name: 'mName'},
-      {text: "Last Name", name: 'lName'},
-      {text: "Age", name: 'age'},
-      {text: "Birth Date", name: 'birthDate'},
-      {text: "Manager", name: 'manager'}
+      {text: "Report Name", name: 'fName'},
+      {text: "Company", name: 'mName'},
+      {text: "Sector", name: 'lName'},
+      {text: "Generated", name: 'age'},
+      {text: "Relationship Manager", name: 'birthDate'},
+      {text: "", name: 'manager'}
     ]
     
     return (
     <div>
       <div className="headerLink">
-        <h2 className="listTitle">users List</h2>
-            <Link to="/page-controller" className="addLink">
-            + GO TO PAGE CONTROLLER
-            ></Link>
+        <h2 className="listTitle">Report Dashboard</h2>
+            
       </div>
       <div>
         <UserDashboard columns={columns} users={users}/>
