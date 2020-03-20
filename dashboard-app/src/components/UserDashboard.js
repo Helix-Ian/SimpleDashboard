@@ -84,11 +84,11 @@ const UserDashboard = props => {
                 <TableCell align='left'>{report.creationDate}</TableCell>
                 <TableCell align='left'>{report.relationshipName}</TableCell>
                 <TableCell align='left'>
-                  <Link to='/page-controller' className='addLink'>
+                {/*  <Link to='/page-controller' className='addLink'>
                     <Button color='primary' variant='contained'>
                       View Report
                     </Button>
-                  </Link>
+            </Link> */}
                 </TableCell>
               </TableRow>
             ))}

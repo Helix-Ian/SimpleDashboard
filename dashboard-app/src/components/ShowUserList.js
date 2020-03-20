@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import axios from 'axios';
 import UserDashboard from './UserDashboard'
+import {PageContext} from '../App';
 
 class ShowUserList extends Component {
   constructor(props) {
@@ -39,7 +40,9 @@ class ShowUserList extends Component {
     <div>
       <div className="headerLink">
         <h2 className="listTitle">Report Dashboard</h2>
-            
+        <PageContext.Consumer>
+          {ctx => <button onClick={() => ctx.switchPage("value")}>Switch to Page Controller</button>}
+        </PageContext.Consumer>
       </div>
       <div>
         <UserDashboard columns={columns} users={users}/>

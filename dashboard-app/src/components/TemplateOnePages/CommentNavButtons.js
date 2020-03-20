@@ -10,7 +10,9 @@ const CommentNavButtons = (props) => {
         comment.ref.current.scrollIntoView({behavior:'smooth', block:'center'});
         setTimeout(() => {
             // wait until either scroll or page switch finishes
-            comment.ref.current.focus();
+            if (comment.ref.current) {
+                comment.ref.current.focus();
+            }
         }, 500);
     }
 
