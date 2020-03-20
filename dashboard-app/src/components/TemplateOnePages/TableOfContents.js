@@ -4,6 +4,7 @@ import '../../App.css';
 import CommentNavButtons from './CommentNavButtons';
 import DoneButton from './DoneButton';
 import PageDisplayButtons from './PageDisplayButtons';
+import {PageContext} from '../../App';
 
 
 class TableOfContents extends Component {
@@ -74,6 +75,9 @@ class TableOfContents extends Component {
             </div>
             <CommentNavButtons commentCallback={this.props.commentCallback} comments={this.props.comments} lastActiveCommentId={this.props.lastActiveCommentId} />
             <DoneButton comments={this.props.comments} />
+            <PageContext.Consumer>
+                {ctx => <button onClick={() => ctx.switchPage(null)}>Back to Dashboard</button>}
+            </PageContext.Consumer>
         </div>
         )
     }
