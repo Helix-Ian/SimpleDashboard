@@ -25,22 +25,21 @@ class ShowUserList extends Component {
       })
   };
 
-
   render() {
     const users = this.state.users;
     const columns = [
-      {text: "First Name", name: 'fName'},
-      {text: "Middle Name", name: 'mName'},
-      {text: "Last Name", name: 'lName'},
-      {text: "Age", name: 'age'},
-      {text: "Birth Date", name: 'birthDate'},
-      {text: "Manager", name: 'manager'}
+      {text: "Report Name", name: 'fName'},
+      {text: "Company", name: 'mName'},
+      {text: "Sector", name: 'lName'},
+      {text: "Generated", name: 'age'},
+      {text: "Relationship Manager", name: 'birthDate'},
+      {text: "", name: 'manager'}
     ]
     
     return (
     <div>
       <div className="headerLink">
-        <h2 className="listTitle">users List</h2>
+        <h2 className="listTitle">Report Dashboard</h2>
         <PageContext.Consumer>
           {ctx => <button onClick={() => ctx.switchPage("value")}>Switch to Page Controller</button>}
         </PageContext.Consumer>
